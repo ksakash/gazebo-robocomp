@@ -34,15 +34,3 @@ add_dependencies(gazebo_robocomp_laser Laser_msgs)
 
 add_library(gazebo_robocomp_IMU SHARED gazebo_plugins/gazebo_robocomp_IMU.cc gazebo_plugins/gazebo_robocomp_IMU.hh)
 target_link_libraries(gazebo_robocomp_IMU ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
-add_library(gazebo_robocomp_JointMotor SHARED gazebo_plugins/gazebo_robocomp_JointMotor.cc gazebo_plugins/gazebo_robocomp_JointMotor.hh)
-target_link_libraries(gazebo_robocomp_JointMotor ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
-#add_library(gazebo_robocomp_camera SHARED gazebo_plugins/gazebo_robocomp_camera.h gazebo_plugins/gazebo_robocomp_camera.cpp)
-#target_link_libraries(gazebo_robocomp_camera ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES}${OpenCV_LIBRARIES} ${OGRE_LIBRARIES} ${OGRE-Paging_LIBRARIES} ${OGRE-Terrain_LIBRARIES})
-
-add_library(gazebo_robocomp_bumper SHARED gazebo_plugins/gazebo_robocomp_bumper.h gazebo_plugins/gazebo_robocomp_bumper.cpp)
-target_link_libraries(gazebo_robocomp_bumper ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
-add_library(gazebo_robocomp_RGBD SHARED gazebo_plugins/gazebo_robocomp_RGBD.h gazebo_plugins/gazebo_robocomp_RGBD.cpp)
-target_link_libraries(gazebo_robocomp_RGBD ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} ${OpenCV_INCLUDE_DIRS} ${PCL_LIBRARIES})
