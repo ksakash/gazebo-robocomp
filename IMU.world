@@ -14,7 +14,7 @@
         <model name="IMU">
             <include>
                 <uri>
-                file:///home/ironman/workspace/gazebo_robocomp_pkgs/gazebo_robocomp_models/noisy_imu
+                file:///home/ironman/gazebo-robocomp/gazebo_robocomp_models/noisy_imu
                 </uri>
             </include>
              
