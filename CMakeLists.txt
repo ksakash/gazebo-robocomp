@@ -22,7 +22,7 @@ include_directories(
     ${OGRE-Paging_INCLUDE_DIRS}
     ${OGRE-Terrain_INCLUDE_DIRS}
     ${PCL_INCLUDE_LIBRARIES}
-    gazebo_robocomp_msgs
+    build/gazebo_robocomp_msgs
 )
 
 link_directories(${GAZEBO_LIBRARY_DIRS} gazebo_robocomp_msgs ${OpenCV_LIBRARIES})
