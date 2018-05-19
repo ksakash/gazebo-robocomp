@@ -15,6 +15,8 @@
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
+#include <gazebo/transport/transport.hh>
+#include <gazebo/msgs/msgs.hh>
 
 namespace gazebo
 {
@@ -32,39 +34,41 @@ namespace gazebo
 
         void SetVelocity(const double &_vel);
 
-        void OnMsg(const double &_vel);
+        void OnMsg(ConstVector3dPtr &_vel);
 
-        private: std::string topic_name_;
+    private: 
+    
+        std::string topic_name_;
 
         // World name
-        private: std::string world_name_;
+        std::string world_name_;
 
         // Pointer to the World
-        private: physics::WorldPtr world_;
+        physics::WorldPtr world_;
 
         // Pointer to the model
-        private: physics::ModelPtr model_;
+        physics::ModelPtr model_;
 
         // Pointer to the joint
-        private: physics::JointPtr joint_;
+        physics::JointPtr joint_;
 
         // A simple PID controller
 
-        private: common::PID pid_;
+        common::PID pid_;
 
         // SDF root element
-        private: sdf::ElementPtr sdf_;
+        sdf::ElementPtr sdf_;
 
         // Gazebo transport details
-        private: gazebo::transport::NodePtr gazebo_node_;
-        private: gazebo::transport::SubscriberPtr sub_;
-        private: gazebo::transport::PublisherPtr pub_;
+        gazebo::transport::NodePtr gazebo_node_;
+        gazebo::transport::SubscriberPtr sub_;
+        gazebo::transport::PublisherPtr pub_;
 
         // Listen to the update event
         // The event is broadcasted every simulation iteration
-        private: gazebo::event::ConnectionPtr updateConnection_;
+        gazebo::event::ConnectionPtr updateConnection_;
 
-        private: int seed;
+        int seed;
     };
 }
 #endif

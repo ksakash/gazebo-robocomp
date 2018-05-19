@@ -1,8 +1,3 @@
-#include <gazebo/gazebo.hh>
-#include <gazebo/physics/physics.hh>
-#include <gazebo/transport/transport.hh>
-#include <gazebo/msgs/msgs.hh>
-
 #include "gazebo_robocomp_joint.hh"
 
 #include <algorithm>
@@ -15,6 +10,8 @@ namespace gazebo
 
 // Constructor
 GazeboRoboCompJoint::GazeboRoboCompJoint() {}
+
+GazeboRoboCompJoint::~GazeboRoboCompJoint() {}
 
 // The load function is called by Gazebo when the plugin is  inserted into simulation
 void GazeboRoboCompJoint::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
@@ -31,6 +28,8 @@ void GazeboRoboCompJoint::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
     // Store the model pointer for convenience.
     this->model_ = _model;
+
+    this->world_name_ = _model->GetWorld()->GetName();
 
     // Get the first joint. We are making an assumption about the model
     // having one joint that is the rotational joint.
@@ -62,11 +61,7 @@ void GazeboRoboCompJoint::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
     // Create the node
     this->gazebo_node_ = transport::NodePtr(new transport::Node());
-#if GAZEBO_MAJOR_VERSION < 8
-    this->gazebo_node_->Init(this->model_->GetWorld()->GetName());
-#else
-    this->gazebo_node_->Init(this->model_->GetWorld()->Name());
-#endif
+    this->gazebo_node_->Init(this->world_name_);
 
     if (_sdf->HasElement("topicName"))
     {
@@ -91,9 +86,9 @@ void GazeboRoboCompJoint::SetVelocity(const double &_vel)
 }
 
 // Handle incoming message
-void GazeboRoboCompJoint::OnMsg(const double &_msg)
+void GazeboRoboCompJoint::OnMsg(ConstVector3dPtr &_msg)
 {
-    this->SetVelocity(_msg);
+    this->SetVelocity(_msg->x());
 }
 
   // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin.

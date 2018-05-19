@@ -34,3 +34,6 @@ add_dependencies(gazebo_robocomp_laser Laser_msgs)
 
 add_library(gazebo_robocomp_IMU SHARED gazebo_plugins/gazebo_robocomp_IMU.cc gazebo_plugins/gazebo_robocomp_IMU.hh)
 target_link_libraries(gazebo_robocomp_IMU ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
+
+add_library(gazebo_robocomp_joint SHARED gazebo_plugins/gazebo_robocomp_joint.cc gazebo_plugins/gazebo_robocomp_joint.hh)
+target_link_libraries(gazebo_robocomp_joint ${GAZEBO_LIBRARIES} ${Boost_LIBRARIS} ${SDF_LIBRARIES})
