@@ -25,8 +25,8 @@ Move to `build` directory:
 
 Now to build the code:
 
-`cmake ..`
-`make`
+`cmake ..
+make`
 
 All the shared objects (plugins) and some APIs would have been built into the directory.
 

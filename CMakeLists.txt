@@ -47,3 +47,9 @@ target_link_libraries(gazebo_robocomp_joint ${GAZEBO_LIBRARIES} ${Boost_LIBRARIS
 
 add_executable(joint_vel src/vel.cc)
 target_link_libraries(joint_vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
+
+add_library(gazebo_robocomp_DiffDrive SHARED gazebo_plugins/gazebo_robocomp_DiffDrive.cc gazebo_plugins/gazebo_robocomp_DiffDrive.hh)
+target_link_libraries(gazebo_robocomp_DiffDrive ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
+
+add_executable(My_Robot_Vel src/diff_drive_cmd.cc)
+target_link_libraries(My_Robot_Vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
