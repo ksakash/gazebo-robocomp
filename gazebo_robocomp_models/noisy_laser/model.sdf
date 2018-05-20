@@ -9,7 +9,7 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>file:///home/ironman/software/gazebo_models/hokuyo/meshes/hokuyo.dae</uri>
+            <uri>file:///home/ironman/gazebo-robocomp/gazebo_robocomp_models/noisy_laser/meshes/hokuyo.dae</uri>
           </mesh>
         </geometry>
       </visual>
