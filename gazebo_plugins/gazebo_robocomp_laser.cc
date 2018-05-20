@@ -33,7 +33,7 @@ GazeboRoboCompLaser::~GazeboRoboCompLaser()
 //////////////////////////////////////////////////
 void GazeboRoboCompLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
 {
-    std::cerr << "Inside the LOAD" << std::endl;
+    std::cerr << "Laser has been loaded!!!!" << std::endl;
     // load plugin
     RayPlugin::Load(_parent, _sdf);
 
@@ -64,6 +64,9 @@ void GazeboRoboCompLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
     this->laser_scan_sub_ =
           this->gazebo_node_->Subscribe(this->parent_ray_sensor_->Topic(),
           &GazeboRoboCompLaser::OnScan, this);
+
+    std::cerr << "Data is getting published on the topic: " << topic_name_ << std::endl;
+    std::cerr << "Do 'gz topic -e " << topic_name_ << "'" << "to see the data published" << std::endl;
 }
 
 ///////////////////////////////////////////////////
@@ -112,10 +115,18 @@ void GazeboRoboCompLaser::OnNewLaserScans()
 
 void GazeboRoboCompLaser::OnScan(ConstLaserScanStampedPtr &_msg)
 {
-    // std::cerr << "Sample count: " << sampleCount << std::endl;
-    // std::cerr << "Scan Resolution: " << laser->GetScanResolution() << std::endl;
-    std::cerr << "Min Horizontal Angle: " << _msg->scan().angle_min() << std::endl;
-    // std::cerr << "Max Horizontal Angle: " << (laser->GetMaxAngle()).Radian() << std::endl;
+    // std::cerr << "++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+    // std::cerr << "Time Stamp: " << _msg->time().sec() << std::endl;
+    // std::cerr << "Min Horizontal Angle: " << _msg->scan().angle_min() << std::endl;
+    // std::cerr << "Max Horizontal Angle: " << _msg->scan().angle_max() << std::endl;
+    // std::cerr << "Range Min: " << _msg->scan().range_min() << std::endl;
+    // std::cerr << "Range Max: " << _msg->scan().range_max() << std::endl;
+    // std::cerr << "Horizontal Resolution: " << _msg->scan().angle_step() << std::endl;
+    // std::cerr << "Min Vertical Angle: "<< _msg->scan().vertical_angle_min() << std::endl;
+    // std::cerr << "Max Vertical Angle: " <<_msg->scan().vertical_angle_max() << std::endl;
+    // std::cerr << "Vertical Resolution: "<<_msg->scan().vertical_angle_step() << std::endl;
+    // std::cerr << "Vertical Count: " << _msg->scan().vertical_count() << std::endl;
+    // std::cerr << "Horizontal Count: "<< _msg->scan().count() << std::endl;
  
 }
 

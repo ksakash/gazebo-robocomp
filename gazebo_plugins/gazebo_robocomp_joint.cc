@@ -86,11 +86,13 @@ void GazeboRoboCompJoint::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     else
     {
         // Create a topic name
-        std::string topic_name_ = "~/" + this->model_->GetName() + "/vel_cmd";
+        topic_name_ = "~/" + this->model_->GetName() + "/vel_cmd";
     }
 
     // Subscribe to the topic, and register a callback
     this->sub_ = this->gazebo_node_->Subscribe(topic_name_, &GazeboRoboCompJoint::OnMsg, this);
+
+    std::cerr << "The plugin is listening on '" << topic_name_ << "'" << "topic." << std::endl;
 
 }
 
@@ -99,6 +101,7 @@ void GazeboRoboCompJoint::SetVelocity(const double &_vel)
 {
     // Set the joint's target velocity.
     this->model_->GetJointController()->SetVelocityTarget(this->joint_->GetScopedName(), _vel);
+    std::cerr << "The velocity of the joint is set to: " << _vel << std::endl;
 }
 
 // Handle incoming message
