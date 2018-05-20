@@ -1,15 +1,31 @@
 #include "gazebo_robocomp_joint.hh"
 
+#include <sdf/sdf.hh>
+#include <sdf/Param.hh>
+#include <gazebo/common/Exception.hh>
+#include <gazebo/physics/physics.hh>
+#include <gazebo/transport/TransportTypes.hh>
+#include <gazebo/msgs/MessageTypes.hh>
+#include <gazebo/common/Time.hh>
+#include <gazebo/common/Plugin.hh>
+#include <gazebo/common/Events.hh>
+#include <gazebo/transport/transport.hh>
+#include <gazebo/msgs/msgs.hh>
+
 #include <algorithm>
 #include <string>
 #include <assert.h>
+
+// std::cerr << "Inside the definition file" << std::endl;
 
 namespace gazebo
 {
 // A plugin to control a joint of a model
 
 // Constructor
-GazeboRoboCompJoint::GazeboRoboCompJoint() {}
+GazeboRoboCompJoint::GazeboRoboCompJoint() {
+    std::cerr << "gazebo_robocomp_joint created" << std::endl;
+}
 
 GazeboRoboCompJoint::~GazeboRoboCompJoint() {}
 

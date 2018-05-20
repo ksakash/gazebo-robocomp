@@ -5,6 +5,8 @@
 
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
+#include <iostream>
+#include <stdio.h>
 
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
@@ -37,7 +39,6 @@ namespace gazebo
         void OnMsg(ConstVector3dPtr &_vel);
 
     private: 
-    
         std::string topic_name_;
 
         // World name
@@ -71,4 +72,5 @@ namespace gazebo
         int seed;
     };
 }
+
 #endif
