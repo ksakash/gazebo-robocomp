@@ -6,12 +6,6 @@
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
 
-// #include <Ice/Ice.h>
-// #include <IceUtil/IceUtil.h>
-// #include <easyiceconfig/EasyIce.h>
-
-// #include <robocomp/IMU.h>
-
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
 #include <gazebo/gazebo.hh>
@@ -23,7 +17,6 @@
 #include <gazebo/common/Events.hh>
 #include <gazebo/common/Exception.hh>
 #include <gazebo/sensors/SensorTypes.hh>
-// #include <gazebo/plugins/RayPlugin.hh>
 
 #include <ignition/math/Angle.hh>
 #include <ignition/math/Pose3.hh>

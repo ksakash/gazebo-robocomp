@@ -37,8 +37,6 @@ namespace gazebo
     this->world_name_ = _sensor->WorldName();
 
     this->sensor_ =  dynamic_cast<sensors::ImuSensor*>(_sensor.get());
-    
-    // this->sensor_ = _sensor;
 
     if (this->sensor_ == NULL)
     {
@@ -97,7 +95,8 @@ namespace gazebo
 
     // this->imu_data_subscriber_ = gazebo_node_->Subscribe(this->sensor_->Topic(), &GazeboRoboCompIMU::OnUpdate, this);
     
-    std::cerr << "this happened" << std::endl;
+    std::cerr << "IMU plugin loaded successfully!!!" << std::endl;
+    std::cerr << "Orientation is representated in Quanternion" << std::endl;
 
     // last_time = sensor->LastUpdateTime();
   }
@@ -126,8 +125,22 @@ namespace gazebo
     accelerometer_data = sensor_->LinearAcceleration();
     gyroscope_data = sensor_->AngularVelocity();
 
-    std::cerr << "this also happened" << std::endl;
+    std::cerr << "++++++++++++++++++++++++++++++++" << std::endl;
+    std::cerr << "--------"<<"Getting Data---------" << std::endl;
 
+    std::cerr << "Orientation_X: " << orientation.X() << std::endl;
+    std::cerr << "Orientation_Y: " << orientation.Y() << std::endl;
+    std::cerr << "Orientation_Z: " << orientation.Z() << std::endl;
+    std::cerr << "Orientation_W: " << orientation.W() << std::endl;
+    
+    std::cerr << "Acceleration_X: " << accelerometer_data.X() << std::endl;
+    std::cerr << "Acceleration_Y: " << accelerometer_data.Y() << std::endl;
+    std::cerr << "Acceleration_Z: " << accelerometer_data.Z() << std::endl;
+
+    std::cerr << "Gyroscope_X: " << gyroscope_data.X() << std::endl;
+    std::cerr << "Gyroscope_Y: " << gyroscope_data.Y() << std::endl;
+    std::cerr << "Gyroscope_Z: " << gyroscope_data.Z() << std::endl;
+  
   }
 
   // double GazeboRoboCompIMU::GuassianKernel(double mu, double sigma)
