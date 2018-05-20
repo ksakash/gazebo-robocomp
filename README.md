@@ -50,7 +50,8 @@ You just have to change `<uri>` element in all the `.world` files and `.sdf` acc
 
 To test the plugins, just start the gazebo with the respective `.world` file:
 
-``` gazebo --verbose laser.world 
+``` 
+gazebo --verbose laser.world 
 gazebo --verbose joint.world
 ``` 
 
