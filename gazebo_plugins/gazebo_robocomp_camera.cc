@@ -35,10 +35,6 @@ namespace gazebo
 
     this->gazebo_node_ = transport::NodePtr(new transport::Node());
     this->gazebo_node_->Init(this->parent_sensor_->WorldName());
-
-    // this->pub_ = this->gazebo_node_->Advertise<gazebo::msgs::ImageStamped>("~/gazebo_robocomp_camera");
-
-    // this->sub_ = this->gazebo_node_->Subscribe(parent_sensor_->Topic(), &GazeboRoboCompCamera::OnMsg, this);
   }
 
   void GazeboRoboCompCamera::OnNewFrame(const unsigned char *_image,

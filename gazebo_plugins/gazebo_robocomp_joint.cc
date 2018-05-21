@@ -16,8 +16,6 @@
 #include <string>
 #include <assert.h>
 
-// std::cerr << "Inside the definition file" << std::endl;
-
 namespace gazebo
 {
 // A plugin to control a joint of a model

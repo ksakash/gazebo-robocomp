@@ -6,12 +6,6 @@
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
 
-// #include <Ice/Ice.h>
-// #include <IceUtil/IceUtil.h>
-// #include <easyiceconfig/EasyIce.h>
-
-// #include <robocomp/Laser.h>
-
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
 #include <gazebo/common/Exception.hh>

@@ -18,17 +18,10 @@
 namespace gazebo
 {
 
-GazeboRoboCompLaser::GazeboRoboCompLaser()
-{
-  this->seed = 0;
-  this->topic_name_ = "/laser_scan_data_";
-}
+GazeboRoboCompLaser::GazeboRoboCompLaser() {}
 
 //////////////////////////////////////////////////
-GazeboRoboCompLaser::~GazeboRoboCompLaser()
-{
-  // delete this->gazebo_node_;
-}
+GazeboRoboCompLaser::~GazeboRoboCompLaser() {}
 
 //////////////////////////////////////////////////
 void GazeboRoboCompLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
@@ -45,8 +38,6 @@ void GazeboRoboCompLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
     // save pointers
     this->sdf_ = _sdf;
 
-    // GAZEBO_SENSORS_USING_DYNAMIC_POINTER_CAST;
-
     this->parent_ray_sensor_ = std::dynamic_pointer_cast<sensors::RaySensor>(_parent);
 
     if (!this->parent_ray_sensor_)
@@ -59,8 +50,6 @@ void GazeboRoboCompLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
 
     std::cerr << "Topic Name: " << this->topic_name_ << std::endl;
 
-    // Publisher to the topic
-    // this->laser_scan_pub_ = this->gazebo_node_->Advertise<Laser_msgs::msgs::gazebo_robocomp_laser>(this->topic_name_);
     this->laser_scan_sub_ =
           this->gazebo_node_->Subscribe(this->parent_ray_sensor_->Topic(),
           &GazeboRoboCompLaser::OnScan, this);
@@ -71,66 +60,10 @@ void GazeboRoboCompLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
 
 ///////////////////////////////////////////////////
 
-void GazeboRoboCompLaser::OnNewLaserScans()
-{
-    
- /*   physics::MultiRayShapePtr laser = this->parent_ray_sensor_->LaserShape();
-    // gzthrow("plugin is working");
+void GazeboRoboCompLaser::OnNewLaserScans() {}
 
-    Laser_msgs::msgs::gazebo_robocomp_laser msg;
-    gazebo::msgs::RaySensor* Ray;
-
-    int sampleCount = 0;
-    sampleCount = laser->GetSampleCount();
-
-    std::cerr << "Sample count: " << sampleCount << std::endl;
-    std::cerr << "Scan Resolution: " << laser->GetScanResolution() << std::endl;
-    std::cerr << "Min Horizontal Angle: " << (laser->GetMinAngle()).Radian() << std::endl;
-    std::cerr << "Max Horizontal Angle: " << (laser->GetMaxAngle()).Radian() << std::endl;
-    std::cerr << "Vertical Samples: " << laser->GetVerticalSampleCount() << std::endl;
-    std::cerr << "Vertical Resolution: " << laser->GetVerticalScanResolution() << std::endl;
-    std::cerr << "Vertical Min Angle: " << (laser->GetVerticalMinAngle()).Radian() << std::endl;
-    std::cerr << "Vertical Max Angle: " << (laser->GetVerticalMaxAngle()).Radian() << std::endl;
-    std::cerr << "Range Min: " << laser->GetMinRange() << std::endl;
-    std::cerr << "Range Max: " << laser->GetMaxRange() << std::endl;
-    std::cerr << "Range Resolution: " << laser->GetResRange() << std::endl;
- 
-
-  // Ray->set_horizontal_samples(sampleCount);
-  // Ray->set_horizontal_resolution(laser->GetScanResolution());
-  // Ray->set_horizontal_min_angle((laser->GetMinAngle()).Radian());
-  // Ray->set_horizontal_max_angle((laser->GetMaxAngle()).Radian());
-  // Ray->set_vertical_samples(laser->GetVerticalSampleCount());
-  // Ray->set_vertical_resolution(laser->GetVerticalScanResolution());
-  // Ray->set_vertical_min_angle((laser->GetVerticalMinAngle()).Radian());
-  // Ray->set_vertical_max_angle((laser->GetVerticalMaxAngle()).Radian());
-  // Ray->set_range_min(laser->GetMinRange());
-  // Ray->set_range_max(laser->GetMaxRange());
-  // Ray->set_range_resolution(laser->GetResRange());
-    
-  // msg.set_allocated_laser(Ray);
-
-  // this->laser_scan_pub_->Publish(msg); */
-}
-
-void GazeboRoboCompLaser::OnScan(ConstLaserScanStampedPtr &_msg)
-{
-    // std::cerr << "++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-    // std::cerr << "Time Stamp: " << _msg->time().sec() << std::endl;
-    // std::cerr << "Min Horizontal Angle: " << _msg->scan().angle_min() << std::endl;
-    // std::cerr << "Max Horizontal Angle: " << _msg->scan().angle_max() << std::endl;
-    // std::cerr << "Range Min: " << _msg->scan().range_min() << std::endl;
-    // std::cerr << "Range Max: " << _msg->scan().range_max() << std::endl;
-    // std::cerr << "Horizontal Resolution: " << _msg->scan().angle_step() << std::endl;
-    // std::cerr << "Min Vertical Angle: "<< _msg->scan().vertical_angle_min() << std::endl;
-    // std::cerr << "Max Vertical Angle: " <<_msg->scan().vertical_angle_max() << std::endl;
-    // std::cerr << "Vertical Resolution: "<<_msg->scan().vertical_angle_step() << std::endl;
-    // std::cerr << "Vertical Count: " << _msg->scan().vertical_count() << std::endl;
-    // std::cerr << "Horizontal Count: "<< _msg->scan().count() << std::endl;
- 
-}
+void GazeboRoboCompLaser::OnScan(ConstLaserScanStampedPtr &_msg) {}
 
 // Register this plugin with the simulator
 GZ_REGISTER_SENSOR_PLUGIN(GazeboRoboCompLaser)
-
 }

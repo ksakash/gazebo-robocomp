@@ -26,10 +26,7 @@ namespace gazebo
     sensor_=NULL;
   }
 
-  GazeboRoboCompIMU::~GazeboRoboCompIMU()
-  {
-    // gazebo_node_->shutdown();
-  }
+  GazeboRoboCompIMU::~GazeboRoboCompIMU() {}
 
   void GazeboRoboCompIMU::Load(sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
   {
@@ -70,18 +67,6 @@ namespace gazebo
       std::cerr << "missing <update_rate>, set to default: " << update_rate << std::endl;
     }
 
-    // Noise
-    /*if (this->sdf_->HasElement("gaussianNoise"))
-    {
-      gaussian_noise =  sdf_->Get<double>("gaussianNoise");
-      std::cerr << "<gaussianNoise> set to: " << gaussian_noise << std::endl;
-    }
-    else
-    {
-      gaussian_noise = 0.0;
-      std::cerr << "missing <gaussianNoise>, set to default: " << gaussian_noise << std::endl;
-    }*/
-
     // Create gazebo Node
     this->gazebo_node_ = transport::NodePtr(new  transport::Node());
 
@@ -92,34 +77,14 @@ namespace gazebo
     imu_data_publisher_ = gazebo_node_->Advertise<gazebo::msgs::IMU>(topic_name_);
 
     connection = event::Events::ConnectWorldUpdateBegin(boost::bind(&GazeboRoboCompIMU::OnUpdate, this, _1));
-
-    // this->imu_data_subscriber_ = gazebo_node_->Subscribe(this->sensor_->Topic(), &GazeboRoboCompIMU::OnUpdate, this);
     
     std::cerr << "IMU plugin loaded successfully!!!" << std::endl;
     std::cerr << "Orientation is representated in Quanternion" << std::endl;
 
-    // last_time = sensor->LastUpdateTime();
   }
 
   void GazeboRoboCompIMU::OnUpdate(const common::UpdateInfo &)
   {
-    /*std::cerr << "inside update" << std::endl;
-    orientation.X() = _msg->orientation().x();
-    orientation.Y() = _msg->orientation().y();
-    orientation.Z() = _msg->orientation().z();
-    orientation.W() = _msg->orientation().w();
-
-    accelerometer_data.X() = _msg->linear_acceleration().x();
-    accelerometer_data.Y() = _msg->linear_acceleration().y();
-    accelerometer_data.Z() = _msg->linear_acceleration().z();
-
-    gyroscope_data.X() = _msg->angular_velocity().x();
-    gyroscope_data.Y() = _msg->angular_velocity().y();
-    gyroscope_data.Z() = _msg->angular_velocity().z();
-
-    // publishing data
-    // imu_data_publisher_->WaitForConnection();
-    imu_data_publisher_->Publish(*(_msg));*/
 
     orientation = sensor_->Orientation();
     accelerometer_data = sensor_->LinearAcceleration();
@@ -142,19 +107,5 @@ namespace gazebo
     std::cerr << "Gyroscope_Z: " << gyroscope_data.Z() << std::endl;
   
   }
-
-  // double GazeboRoboCompIMU::GuassianKernel(double mu, double sigma)
-  // {
-  //   // generation of two normalized uniform random variables
-  //   double U1 = static_cast<double>(rand_r(&seed)) / static_cast<double>(RAND_MAX);
-  //   double U2 = static_cast<double>(rand_r(&seed)) / static_cast<double>(RAND_MAX);
-  //
-  //   // using Box-Muller transform to obtain a varaible with a standard normal distribution
-  //   double Z0 = sqrt(-2.0 * ::log(U1)) * cos(2.0*M_PI * U2);
-  //
-  //   // scaling
-  //   Z0 = sigma * Z0 + mu;
-  //   return Z0;
-  // }
 
 }
