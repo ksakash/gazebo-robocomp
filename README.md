@@ -75,4 +75,16 @@ To test the IMU plugin do:
 
 The data will start getting published in the respective console.
 
+The differential drive plugin doesn't have a sensor for now, but it will have a laser also. It has two wheels which can revolve separately with separate speeds and hence turn the bot. It also has a castor at the front. It is very basic model that I have made. So to move the move with a particular linear and angular velocity it will send the command to the indvidual wheels accordingly.
+
+To test the plugin do:
+
+`gazebo --verbose DiffDrive.world`
+
+I have added an API for giving the commands to the Model. API is `diff_vel_cmd`. It takes two arguments and publishes over the topic at which the plugin will be listening and the differential drive bot starts to move.
+
+To run the API do:
+
+`./~/gazebo-robocomp/build/My_Robot_Vel linear_velocity angular_vel`
+
 
