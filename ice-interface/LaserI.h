@@ -14,11 +14,11 @@ using namespace RoboCompLaser;
 class LaserI : public Laser
 {
 public:
-    LaserI(string _deviceName, string _topicName);
+    LaserI();
     ~LaserI();
     virtual TLaserData getLaserData(const::Ice::Current&) override;
-    // virtual TLaserData getLaserAndBStateData(RoboCompGenericBase::TBaseState bState, const::Ice::Current&) override;
     virtual LaserConfData getLaserConfData(const::Ice::Current&) override;
+    virtual TLaserData getLaserAndBStateData(RoboCompGenericBase::TBaseState bState, const::Ice::Current&);
 private:
     void callback(ConstLaserScanStampedPtr &_msg);
     private: gazebo::transport::NodePtr gazebo_node_;
@@ -27,4 +27,4 @@ private:
     private: string device_name_;
     private: TLaserData LaserScanValues;
     private: LaserConfData LaserConfigData;
-};
+}; 

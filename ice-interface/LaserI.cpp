@@ -1,14 +1,15 @@
-#include "LaserI.hpp"
+#include "LaserI.h"
 
 using namespace RoboCompLaser;
 using namespace std;
 using namespace gazebo;
 
-LaserI::LaserI(string _deviceName, string _topicName) {
-    this->device_name_ = _deviceName;
+LaserI::LaserI() {
+    this->device_name_ = "laser";
+    this->topic_name_ = "/laser/scan/data";
     this->gazebo_node_ = gazebo::transport::NodePtr(new gazebo::transport::Node());
     this->gazebo_node_->Init(this->device_name_);
-    this->laser_scan_sub_ = this->gazebo_node_->Subscribe(_topicName, &LaserI::callback, this);
+    this->laser_scan_sub_ = this->gazebo_node_->Subscribe(topic_name_, &LaserI::callback, this);
     
     int i = 0;
 
@@ -29,8 +30,8 @@ LaserI::LaserI(string _deviceName, string _topicName) {
     this->LaserConfigData.angleIni = 0; 
     this->LaserConfigData.device = this->device_name_;
     this->LaserConfigData.driver = "gazebo_driver";
-
-}
+    this->LaserConfigData.sampleRate = 0;
+} 
 
 LaserI::~LaserI() {
 
@@ -39,10 +40,6 @@ LaserI::~LaserI() {
 TLaserData LaserI::getLaserData(const Ice::Current&) {
     return LaserScanValues;
 }
-
-// TLaserData LaserI::getLaserAndBStateData() {
-
-// }
 
 LaserConfData LaserI::getLaserConfData(const Ice::Current&) {
     return LaserConfigData;
@@ -64,10 +61,16 @@ void LaserI::callback(ConstLaserScanStampedPtr &_msg) {
     this->LaserConfigData.maxRange = _msg->scan().range_min();
     this->LaserConfigData.minRange = _msg->scan().range_max();
     this->LaserConfigData.iniRange = _msg->scan().ranges(0);
-    this->LaserConfigData.endRange = _msg->scan().ranges(i);
+    this->LaserConfigData.endRange = _msg->scan().ranges(i-1);
     this->LaserConfigData.angleRes = _msg->scan().angle_step();
     this->LaserConfigData.angleIni = _msg->scan().angle_min();
     this->LaserConfigData.device = this->device_name_;
     this->LaserConfigData.driver = "gazebo_driver";
     // this->LaserConfigData.sampleRate = 
 }
+
+TLaserData LaserI::getLaserAndBStateData(RoboCompGenericBase::TBaseState bState, const::Ice::Current&) 
+{
+    return LaserScanValues;
+}
+
