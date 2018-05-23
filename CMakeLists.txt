@@ -5,7 +5,15 @@ FIND_PACKAGE(Boost 1.40 COMPONENTS system REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(gazebo REQUIRED)
 find_package(PCL 1.3 REQUIRED COMPONENTS common io)
-find_package(Ice REQUIRED COMPONENTS Ice IceUtil Glacier2)
+# find_package(Ice REQUIRED)
+    # Ice 
+    # IceUtil
+    # Glacier2 
+    # IceBox 
+    # IceGrid 
+    # IcePatch2 
+    # IceStorm
+
 
 include(FindBoost)
 
@@ -36,7 +44,19 @@ include_directories(
     ice-interface
 ) 
 
-link_directories(${GAZEBO_LIBRARY_DIRS} gazebo_robocomp_msgs ${OpenCV_LIBRARIES} ${PCL_LIBRARY_DIRS} ${easyiceconfig_LIBRARY_DIRS} IceUtil Ice ${ZeroCIce_LIBRARIES})
+link_directories(
+    ${GAZEBO_LIBRARY_DIRS} 
+    gazebo_robocomp_msgs 
+    ${OpenCV_LIBRARIES} 
+    ${PCL_LIBRARY_DIRS} 
+    ${easyiceconfig_LIBRARY_DIRS} 
+    # IceUtil 
+    /usr/lib/x86_64-linux-gnu/c++11
+    # Ice
+    pthread 
+    ${ZeroCIce_LIBRARIES} 
+)
+
 add_definitions(${PCL_DEFINITIONS})
 add_subdirectory(gazebo_robocomp_msgs)
 
@@ -60,19 +80,46 @@ add_executable(My_Robot_Vel src/diff_drive_cmd.cc)
 target_link_libraries(My_Robot_Vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
 add_library(gazebo_robocomp_camera SHARED gazebo_plugins/gazebo_robocomp_camera.cc gazebo_plugins/gazebo_robocomp_camera.hh)
-target_link_libraries(gazebo_robocomp_camera ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} ${OpenCV_LIBRARIES} ${OGRE_LIBRARIES} ${OGRE-Paging_LIBRARIES} ${OGRE-Terrain_LIBRARIES})
+target_link_libraries(gazebo_robocomp_camera 
+    ${GAZEBO_LIBRARIES} 
+    ${Boost_LIBRARIES} 
+    ${SDF_LIBRARIES} 
+    ${OpenCV_LIBRARIES} 
+    ${OGRE_LIBRARIES} 
+    ${OGRE-Paging_LIBRARIES} 
+    ${OGRE-Terrain_LIBRARIES}
+)
 
 add_library(gazebo_robocomp_bumper SHARED gazebo_plugins/gazebo_robocomp_bumper.cc gazebo_plugins/gazebo_robocomp_bumper.hh)
 target_link_libraries(gazebo_robocomp_bumper ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
-#add_library(gazebo_robocomp_RGBD SHARED gazebo_plugins/gazebo_robocomp_RGBD.cc gazebo_plugins/gazebo_robocomp_RGBD.hh)
-#target_link_libraries(gazebo_robocomp_RGBD ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} ${OpenCV_INCLUDE_DIRS} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
+add_library(gazebo_robocomp_RGBD SHARED gazebo_plugins/gazebo_robocomp_RGBD.cc gazebo_plugins/gazebo_robocomp_RGBD.hh)
+target_link_libraries(gazebo_robocomp_RGBD ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} ${OpenCV_INCLUDE_DIRS} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
 
-add_library(laser_interface SHARED ice-interface/LaserI.cpp ice-interface/LaserI.h)
-target_link_libraries(laser_interface ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES})
+add_library(GenericBase SHARED ice-interface/GenericBase.cpp ice-interface/GenericBase.h)
+target_link_libraries(GenericBase 
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+add_library(Laser SHARED ice-interface/Laser.cpp ice-interface/Laser.h)
+target_link_libraries(Laser
+   GenericBase
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+add_library(LaserI SHARED ice-interface/LaserI.cpp ice-interface/LaserI.h)
+target_link_libraries(LaserI Laser Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 add_executable(server src/server.cpp)
-target_link_libraries(server ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} laser_interface)
+target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 add_executable(client src/client.cpp)
-target_link_libraries(client ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} Ice ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} IceUtil laser_interface)
+target_link_libraries(client ${GAZEBO_LIBRARIES} LaserI ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES})

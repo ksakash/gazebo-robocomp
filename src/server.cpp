@@ -5,8 +5,9 @@ using namespace std;
 using namespace RoboCompLaser;
  
 int main(int argc, char* argv[])
-{
+{ 
     Ice::CommunicatorPtr ic;
+    int status = 0;
     try
     {
         ic = Ice::initialize(argc, argv);
@@ -16,10 +17,16 @@ int main(int argc, char* argv[])
         adapter->activate();
         ic->waitForShutdown();
     }
-    catch(const std::exception& e)
+    catch(const Ice::Exception& e)
+    {
+        cerr << e << endl;
+        status = 1;
+    }
+
+    catch (const std::exception& e) 
     {
         cerr << e.what() << endl;
-        return 1;
+        status = 1;
     }
 
     if(ic) 
@@ -31,7 +38,7 @@ int main(int argc, char* argv[])
         catch(const Ice::Exception& e) 
         {
             cerr << e << endl;
-            return 1;
+            status = 1;
         }
     }
     return 0;

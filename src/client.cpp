@@ -4,7 +4,7 @@
  
 using namespace std;
 using namespace RoboCompLaser;
-
+ 
 void printConfigData(LaserConfData &laser_data)
 {
     std::cerr << "Max Measures: " << laser_data.maxMeasures << std::endl;
