@@ -1,7 +1,7 @@
 #ifndef ROBOCOMPLASER_ICE
 #define ROBOCOMPLASER_ICE
 
-// #include "GenericBase.ice"
+#include "GenericBase.ice"
 
 module RoboCompLaser{
 	sequence <int> shortVector;
@@ -30,7 +30,7 @@ module RoboCompLaser{
 
 	interface Laser{
 		TLaserData getLaserData();
-		// TLaserData getLaserAndBStateData(out RoboCompGenericBase::TBaseState bState);
+		TLaserData getLaserAndBStateData(out RoboCompGenericBase::TBaseState bState);
 		LaserConfData getLaserConfData();
 	};
 };
