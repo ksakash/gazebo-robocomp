@@ -5,7 +5,7 @@
 using namespace std;
 using namespace RoboCompLaser;
 
-void printConfigData(TLaserConfigdata &laser_data)
+void printConfigData(LaserConfData &laser_data)
 {
     std::cerr << "Max Measures: " << laser_data.maxMeasures << std::endl;
     std::cerr << "Max Degrees: " << laser_data.maxDegrees << std::endl;
@@ -14,15 +14,15 @@ void printConfigData(TLaserConfigdata &laser_data)
     std::cerr << "Initial Range: " << laser_data.iniRange << std::endl;
     std::cerr << "End Range: " << laser_data.endRange << std::endl;
     std::cerr << "Angle Resolution: " << laser_data.angleRes << std::endl;
-    std::cerr << "Initial Angle: " << laser_data.iniAngle << std::endl;
-    std::cerr << "Device Diver: " << laser_data.deviceDriver << std::endl;
+    std::cerr << "Initial Angle: " << laser_data.angleIni << std::endl;
+    std::cerr << "Device Diver: " << laser_data.driver << std::endl;
 }
  
 void printLaserScanData(TLaserData &laser_data)
 {
     for(int i = 0; i < laser_data.size(); i++)
     {
-        std::cerr << "Ray Index: " << i << " Ray Range: " << laser_data[i].dist << " Ray Angle: " << laser_data[i] << std::endl;
+        std::cerr << "Ray Index: " << i << " Ray Range: " << laser_data[i].dist << " Ray Angle: " << laser_data[i].angle << std::endl;
     }
 }
 
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
     if(argc != 2)
     {
         std::cerr << "Invalid Input!!!" << std::endl;
-        return;
+        return -1;
     }
 
     int toPublish = std::stoi(argv[1]);
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     try
     {
         ic = Ice::initialize(argc, argv);
-        Ice::ObjectPrx base = ich->stringToProxy("RoboCompLaser:default -p 10000");
+        Ice::ObjectPrx base = ic->stringToProxy("RoboCompLaser:default -p 10000");
         LaserPrx laser = LaserPrx::checkedCast(base);
         if(!laser)
         {
@@ -48,9 +48,9 @@ int main(int argc, char* argv[])
         }
  
         TLaserData scan_data = laser->getLaserData();
-        LaserConfData  = laser->getLaserConfData();
+        LaserConfData config_data = laser->getLaserConfData();
 
-        printConfiData(config_data);
+        printConfigData(config_data);
         printLaserScanData(scan_data);
 
     }

@@ -1,7 +1,7 @@
 #ifndef ROBOCOMPLASER_ICE
 #define ROBOCOMPLASER_ICE
 
-#include "GenericBase.ice"
+// #include "GenericBase.ice"
 
 module RoboCompLaser{
 	sequence <int> shortVector;
@@ -11,12 +11,12 @@ module RoboCompLaser{
 		int maxMeasures;
 		int maxDegrees;
 		int maxRange;
-		int minRange;
+		int minRange; 
 		int iniRange;
 		int endRange;
 		int cluster;
 		int sampleRate;
-		float angleRes;
+		float angleRes; 
 		float angleIni;
 		string driver;
 		string device;
@@ -30,7 +30,7 @@ module RoboCompLaser{
 
 	interface Laser{
 		TLaserData getLaserData();
-		TLaserData getLaserAndBStateData(out RoboCompGenericBase::TBaseState bState);
+		// TLaserData getLaserAndBStateData(out RoboCompGenericBase::TBaseState bState);
 		LaserConfData getLaserConfData();
 	};
 };

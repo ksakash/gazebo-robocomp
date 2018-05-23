@@ -4,6 +4,8 @@ project(gazebo_robocomp_pkgs)
 FIND_PACKAGE(Boost 1.40 COMPONENTS system REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(gazebo REQUIRED)
+find_package(PCL 1.3 REQUIRED COMPONENTS common io)
+find_package(Ice REQUIRED COMPONENTS Ice IceUtil Glacier2)
 
 include(FindBoost)
 
@@ -28,11 +30,14 @@ include_directories(
     ${OGRE_INCLUDE_DIRS}
     ${OGRE-Paging_INCLUDE_DIRS}
     ${OGRE-Terrain_INCLUDE_DIRS}
-    ${PCL_INCLUDE_LIBRARIES}
+    ${PCL_INCLUDE_DIRS}
     build/gazebo_robocomp_msgs
-)
+    ${easyiceconfig_INCLUDE_DIRS}
+    ice-interface
+) 
 
-link_directories(${GAZEBO_LIBRARY_DIRS} gazebo_robocomp_msgs ${OpenCV_LIBRARIES})
+link_directories(${GAZEBO_LIBRARY_DIRS} gazebo_robocomp_msgs ${OpenCV_LIBRARIES} ${PCL_LIBRARY_DIRS} ${easyiceconfig_LIBRARY_DIRS} IceUtil Ice ${ZeroCIce_LIBRARIES})
+add_definitions(${PCL_DEFINITIONS})
 add_subdirectory(gazebo_robocomp_msgs)
 
 add_library(gazebo_robocomp_laser SHARED gazebo_plugins/gazebo_robocomp_laser.cc gazebo_plugins/gazebo_robocomp_laser.hh)
@@ -60,5 +65,14 @@ target_link_libraries(gazebo_robocomp_camera ${GAZEBO_LIBRARIES} ${Boost_LIBRARI
 add_library(gazebo_robocomp_bumper SHARED gazebo_plugins/gazebo_robocomp_bumper.cc gazebo_plugins/gazebo_robocomp_bumper.hh)
 target_link_libraries(gazebo_robocomp_bumper ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
-add_library(gazebo_robocomp_RGBD SHARED gazebo_plugins/gazebo_robocomp_RGBD.cc gazebo_plugins/gazebo_robocomp_RGBD.hh)
-target_link_libraries(gazebo_robocomp_RGBD ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} ${OpenCV_INCLUDE_DIRS} ${PCL_LIBRARIES})
+#add_library(gazebo_robocomp_RGBD SHARED gazebo_plugins/gazebo_robocomp_RGBD.cc gazebo_plugins/gazebo_robocomp_RGBD.hh)
+#target_link_libraries(gazebo_robocomp_RGBD ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} ${OpenCV_INCLUDE_DIRS} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
+
+add_library(laser_interface SHARED ice-interface/LaserI.cpp ice-interface/LaserI.h)
+target_link_libraries(laser_interface ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES})
+
+add_executable(server src/server.cpp)
+target_link_libraries(server ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} laser_interface)
+
+add_executable(client src/client.cpp)
+target_link_libraries(client ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} Ice ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} IceUtil laser_interface)

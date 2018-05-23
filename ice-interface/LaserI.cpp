@@ -31,6 +31,8 @@ LaserI::LaserI() {
     this->LaserConfigData.device = this->device_name_;
     this->LaserConfigData.driver = "gazebo_driver";
     this->LaserConfigData.sampleRate = 0;
+    this->LaserConfigData.staticConf = 0;
+    this->LaserConfigData.cluster = 0;
 } 
 
 LaserI::~LaserI() {
@@ -66,11 +68,13 @@ void LaserI::callback(ConstLaserScanStampedPtr &_msg) {
     this->LaserConfigData.angleIni = _msg->scan().angle_min();
     this->LaserConfigData.device = this->device_name_;
     this->LaserConfigData.driver = "gazebo_driver";
-    // this->LaserConfigData.sampleRate = 
+    this->LaserConfigData.sampleRate = 0;
+    this->LaserConfigData.staticConf = 0;
+    this->LaserConfigData.cluster = 0;
 }
 
-TLaserData LaserI::getLaserAndBStateData(RoboCompGenericBase::TBaseState bState, const::Ice::Current&) 
-{
-    return LaserScanValues;
-}
+// TLaserData LaserI::getLaserAndBStateData(RoboCompGenericBase::TBaseState& bState, const Ice::Current&) 
+// {
+//     return LaserScanValues;
+// }
 

@@ -16,9 +16,9 @@ class LaserI : public Laser
 public:
     LaserI();
     ~LaserI();
-    virtual TLaserData getLaserData(const::Ice::Current&) override;
-    virtual LaserConfData getLaserConfData(const::Ice::Current&) override;
-    virtual TLaserData getLaserAndBStateData(RoboCompGenericBase::TBaseState bState, const::Ice::Current&);
+    virtual TLaserData getLaserData(const Ice::Current&) override;
+    virtual LaserConfData getLaserConfData(const Ice::Current&) override; 
+    // virtual ::RoboCompLaser::TLaserData getLaserAndBStateData(RoboCompGenericBase::TBaseState&, const ::Ice::Current&) override;
 private:
     void callback(ConstLaserScanStampedPtr &_msg);
     private: gazebo::transport::NodePtr gazebo_node_;
