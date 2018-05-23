@@ -59,5 +59,19 @@ int main(int argc, char* argv[])
         cerr << e.what() << endl;
         return 1;
     }
+
+    if(ic)
+    {
+        try
+        {
+            ic->destroy();
+        }
+        catch(const Ice::Exception& e)
+        {
+            cerr << e << endl;
+            return 1;
+        }
+    }
+
     return 0;
 }

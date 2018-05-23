@@ -1,14 +1,17 @@
 #include "LaserI.h"
+#include <gazebo/gazebo_client.hh>
+#include <gazebo/gazebo_config.h>
 
 using namespace RoboCompLaser;
 using namespace std;
 using namespace gazebo;
 
-LaserI::LaserI() {
-    this->device_name_ = "laser";
-    this->topic_name_ = "/laser/scan/data";
+LaserI::LaserI(int argc, char **argv) {
+    gazebo::client::setup(argc, argv);
+    this->device_name_ = "gazebo_robocomp_laser";
+    this->topic_name_ = "/gazebo/gazebo_robocomp_laser/hokuyo/hokuyo/link/laser/scan";
     this->gazebo_node_ = gazebo::transport::NodePtr(new gazebo::transport::Node());
-    this->gazebo_node_->Init(this->device_name_);
+    this->gazebo_node_->Init();
     this->laser_scan_sub_ = this->gazebo_node_->Subscribe(topic_name_, &LaserI::callback, this);
     
     int i = 0;
@@ -28,7 +31,7 @@ LaserI::LaserI() {
     this->LaserConfigData.endRange = 0;
     this->LaserConfigData.angleRes = 0;
     this->LaserConfigData.angleIni = 0; 
-    this->LaserConfigData.device = this->device_name_;
+    this->LaserConfigData.device = "gazebo_robocomp_laser";
     this->LaserConfigData.driver = "gazebo_driver";
     this->LaserConfigData.sampleRate = 0;
     this->LaserConfigData.staticConf = 0;
@@ -36,20 +39,23 @@ LaserI::LaserI() {
 } 
 
 LaserI::~LaserI() {
-
+    gazebo::client::shutdown();
 }
 
 TLaserData LaserI::getLaserData(const Ice::Current&) {
+    std::cerr << "Returning LaserData" << std::endl;
     return LaserScanValues;
 }
 
 LaserConfData LaserI::getLaserConfData(const Ice::Current&) {
+    std::cerr << "Returning Config Data" << std::endl;
     return LaserConfigData;
 }
 
 void LaserI::callback(ConstLaserScanStampedPtr &_msg) {
 
     int i = 0;
+    std::cerr << "Getting Callbacks" << std::endl;
     LaserScanValues.resize(_msg->scan().count());
 
     for(i = 0; i < _msg->scan().count(); i++)

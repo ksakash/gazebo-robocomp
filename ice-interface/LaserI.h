@@ -14,7 +14,7 @@ using namespace RoboCompLaser;
 class LaserI : public Laser
 {
 public: 
-    LaserI();
+    LaserI(int argc, char **argv);
     ~LaserI();
     virtual TLaserData getLaserData(const Ice::Current&) override;
     virtual LaserConfData getLaserConfData(const Ice::Current&) override; 

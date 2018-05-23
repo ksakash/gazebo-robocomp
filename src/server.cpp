@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
     {
         ic = Ice::initialize(argc, argv);
         auto adapter = ic->createObjectAdapterWithEndpoints("RoboCompLaserAdapter", "default -p 10000");
-        Ice::ObjectPtr object = new LaserI;
+        Ice::ObjectPtr object = new LaserI(argc, argv);
         adapter->add(object, Ice::stringToIdentity("RoboCompLaser"));
         adapter->activate();
         ic->waitForShutdown();
