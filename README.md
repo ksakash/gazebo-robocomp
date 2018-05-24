@@ -87,4 +87,20 @@ To run the API do:
 
 `./~/gazebo-robocomp/build/My_Robot_Vel linear_velocity angular_vel`
 
+`LaserI` is the interface which is going to communicate for robocomp with gazebo. It subscribes to the topic at which the `gazebo_robocomp_laser` plugin is publishing its data using gazebo `transport` libraries and publishing as when the `client` requires it.
 
+To test it, do the following:
+
+```
+// start the gazebo world from the project home directory
+
+gazebo --verbose laser.world
+
+// start the server
+
+./build/server
+
+// use client to publish the data at any instant 
+
+./build/client 1 // it will publish the config data and the laser scan data at once.
+```
