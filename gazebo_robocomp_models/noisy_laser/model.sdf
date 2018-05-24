@@ -11,7 +11,7 @@
           <mesh>
             <uri>file:///home/ironman/gazebo-robocomp/gazebo_robocomp_models/noisy_laser/meshes/hokuyo.dae</uri>
           </mesh>
-        </geometry>
+        </geometry> 
       </visual>
       <sensor name="laser" type="ray">
         <pose>0.01 0 0.03 0 -0 0</pose>

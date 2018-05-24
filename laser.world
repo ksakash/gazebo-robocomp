@@ -20,5 +20,5 @@
       <!-- <plugin name="velodyne_control" filename="libvelodyne_plugin.so"/> -->
     </model>
 
-  </world>
+  </world> 
 </sdf>

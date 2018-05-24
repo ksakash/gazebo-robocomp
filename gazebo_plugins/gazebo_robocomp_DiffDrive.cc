@@ -16,20 +16,26 @@ namespace gazebo
 // Register plugin with the simulator
 GZ_REGISTER_MODEL_PLUGIN(GazeboRoboCompDiffDrive)
 
-/////////////////////////////////////////////////////
 GazeboRoboCompDiffDrive::GazeboRoboCompDiffDrive()
 {
 }
 
-//////////////////////////////////////////////////
 GazeboRoboCompDiffDrive::~GazeboRoboCompDiffDrive()
 {
 }
 
-//////////////////////////////////////////////////////////
 void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
   std::cerr << "DiffDrive Plugin Loaded!!!!" << std::endl;
+
+  // // load plugin
+  // RayPlugin::Load(_parent, _sdf);
+
+  // // Get the world name
+  // std::string world_name_ = _parent->WorldName();
+
+  // this->world_ = physics::get_world(world_name_);
+
   // Safety check
   if (_model->GetJointCount() == 0)
   {
@@ -87,7 +93,7 @@ void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sd
   
   // Create the Node
   this->gazebo_node_ = transport::NodePtr(new transport::Node());
-
+ 
   this->gazebo_node_->Init(world_name_);
 
   if (!this->sdf_->HasElement("topicName"))

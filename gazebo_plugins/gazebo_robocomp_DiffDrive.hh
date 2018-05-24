@@ -8,7 +8,7 @@
 
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
-#include <gazebo/gazebo.hh>
+#include <gazebo/gazebo.hh> 
 #include <gazebo/physics/physics.hh>
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/MessageTypes.hh>
@@ -44,6 +44,9 @@ namespace gazebo
 
     // Pointer to the model
     private: physics::ModelPtr model_;
+
+    // Pointer to the model
+    private: sensors::RaySensorPtr parent_ray_sensor_;
 
     // Pointer to the joint
     private: physics::JointPtr right_joint_;

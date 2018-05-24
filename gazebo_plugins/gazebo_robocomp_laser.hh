@@ -36,7 +36,7 @@ namespace gazebo
         
         public: void OnScan(ConstLaserScanStampedPtr &_msg);
         // Topic used for communication
-        private: std::string topic_name_;
+        private: std::string topic_name_; 
 
         // World name
         private: std::string world_name_;

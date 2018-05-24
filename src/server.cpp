@@ -4,7 +4,7 @@
 using namespace std;
 using namespace RoboCompLaser;
  
-int main(int argc, char* argv[])
+int main(int argc, char* argv[]) 
 { 
     Ice::CommunicatorPtr ic;
     int status = 0;
