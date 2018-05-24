@@ -5,11 +5,10 @@
 
 module RoboCompMotors{
 
-  class Motors
+  interface Motors
   {
     float getMotorSpeed();
     void setMotorSpeed(float w);
-    float motorSpeed;
   };
 
 }; 
