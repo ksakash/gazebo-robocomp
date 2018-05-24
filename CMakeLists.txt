@@ -116,6 +116,10 @@ execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/contai
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/IMU.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
 add_library(GenericBase SHARED ice-interface/GenericBase.cpp ice-interface/GenericBase.h)
 target_link_libraries(GenericBase 
    ${Boost_LIBRARIES} 
@@ -162,8 +166,23 @@ target_link_libraries(exceptions
    /usr/lib/x86_64-linux-gnu/c++11
 )
 
+add_library(IMU SHARED ice-interface/IMU.cpp ice-interface/IMU.h)
+target_link_libraries(IMU
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
 add_library(LaserI SHARED ice-interface/LaserI.cpp ice-interface/LaserI.h)
 target_link_libraries(LaserI Laser Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+
+add_library(MotorI SHARED ice-interface/MotorI.cpp ice-interface/MotorI.h)
+target_link_libraries(MotorI Motors Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+
+add_library(IMUI SHARED ice-interface/IMUI.cpp ice-interface/IMUI.h)
+target_link_libraries(IMUI IMU Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 add_executable(server src/server.cpp)
 target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
