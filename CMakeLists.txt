@@ -100,16 +100,20 @@ execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Generi
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/GenericBase.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface/
-)
-
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Laser.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Laser.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface/
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Motors.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/exceptions.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/containers.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
 add_library(GenericBase SHARED ice-interface/GenericBase.cpp ice-interface/GenericBase.h)
@@ -124,6 +128,33 @@ target_link_libraries(GenericBase
 add_library(Laser SHARED ice-interface/Laser.cpp ice-interface/Laser.h)
 target_link_libraries(Laser
    GenericBase
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+add_library(Motors SHARED ice-interface/Motors.cpp ice-interface/Motors.h)
+target_link_libraries(Motors
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+add_library(containers SHARED ice-interface/containers.cpp ice-interface/containers.h)
+target_link_libraries(containers
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+add_library(exceptions SHARED ice-interface/exceptions.cpp ice-interface/exceptions.h)
+target_link_libraries(exceptions
    ${Boost_LIBRARIES} 
    #Ice
    #IceUtil 

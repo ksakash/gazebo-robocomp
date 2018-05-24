@@ -79,18 +79,22 @@ void GazeboRoboCompJoint::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
     if (_sdf->HasElement("topicName"))
     {
-        this->topic_name_ = _sdf->Get<std::string>("topicName");
+        this->sub_topic_name_ = _sdf->Get<std::string>("topicName");
     }
     else
     {
         // Create a topic name
-        topic_name_ = "~/" + this->model_->GetName() + "/vel_cmd";
+        sub_topic_name_ = "~/" + this->model_->GetName() + "/vel_cmd";
     }
 
-    // Subscribe to the topic, and register a callback
-    this->sub_ = this->gazebo_node_->Subscribe(topic_name_, &GazeboRoboCompJoint::OnMsg, this);
+    this->pub_topic_name_ = "/joint/vel";
 
-    std::cerr << "The plugin is listening on '" << topic_name_ << "'" << "topic." << std::endl;
+    
+    // Subscribe to the topic, and register a callback
+    this->sub_ = this->gazebo_node_->Subscribe(sub_topic_name_, &GazeboRoboCompJoint::OnMsg, this);
+    this->pub_ = this->gazebo_node_->Advertise<msgs::Vector3d>(pub_topic_name_);
+
+    std::cerr << "The plugin is listening on '" << sub_topic_name_ << "'" << "topic." << std::endl;
 
 }
 
@@ -100,6 +104,10 @@ void GazeboRoboCompJoint::SetVelocity(const double &_vel)
     // Set the joint's target velocity.
     this->model_->GetJointController()->SetVelocityTarget(this->joint_->GetScopedName(), _vel);
     std::cerr << "The velocity of the joint is set to: " << _vel << std::endl;
+    msgs::Vector3d msg;
+
+    gazebo::msgs::Set(&msg, ignition::math::Vector3d(_vel, 0, 0));
+
 }
 
 // Handle incoming message

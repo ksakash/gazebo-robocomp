@@ -39,7 +39,8 @@ namespace gazebo
         void OnMsg(ConstVector3dPtr &_vel);
 
     private: 
-        std::string topic_name_;
+        std::string sub_topic_name_;
+        std::string pub_topic_name_;
 
         // World name
         std::string world_name_;
