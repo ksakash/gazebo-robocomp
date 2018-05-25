@@ -1,0 +1,10 @@
+build/
+
+ice-interface/*.h
+ice-interface/*.cpp
+
+!ice-interface/*I.h
+!ice-interface/*I.cpp
+
+
+
