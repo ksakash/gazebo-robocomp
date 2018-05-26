@@ -15,6 +15,11 @@ set (gazebo_robocomp_msgs
     vector3d.proto
     quaternion.proto
     pose.proto
+    motor_goal_velocity.proto
+    jointMotor_params.proto
+    jointMotorState.proto
+    motor_goal_position.proto
+
 )
 
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${gazebo_robocomp_msgs})
@@ -28,3 +33,14 @@ target_link_libraries(diffdrive_msgs ${PROTOBUF_LIBRARY})
 add_library(diffdrive_state SHARED ${PROTO_SRCS})
 target_link_libraries(diffdrive_state ${PROTOBUF_LIBRARY})
 
+add_library(motor_goal_velocity SHARED ${PROTO_SRCS})
+target_link_libraries(motor_goal_velocity ${PROTOBUF_LIBRARY})
+
+add_library(motor_goal_position SHARED ${PROTO_SRCS})
+target_link_libraries(motor_goal_position ${PROTOBUF_LIBRARY})
+
+add_library(jointMotorState SHARED ${PROTO_SRCS})
+target_link_libraries(jointMotorState ${PROTOBUF_LIBRARY})
+
+add_library(jointMotor_params SHARED ${PROTO_SRCS})
+target_link_libraries(jointMotor_params ${PROTOBUF_LIBRARY})
