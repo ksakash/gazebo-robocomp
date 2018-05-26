@@ -1,6 +1,6 @@
 #ifndef GAZEBO_ROBOCOMP_DIFFDRIVE_HH
 #define GAZEBO_ROBOCOMP_DIFFDRIVE_HH
-
+ 
 #include <string>
 
 #include <boost/bind.hpp>
@@ -40,8 +40,9 @@ namespace gazebo
     private: void OnMsg(ConstVector3dPtr &_msg);
 
     // Topic used for communication
-    private: std::string topic_name_;
-
+    private: std::string sub_topic_name_;
+    private: std::string pub_topic_name_;
+    // private: std::string diffdrive_state_topic_name_;
     // Pointer to the model
     private: physics::ModelPtr model_;
 
@@ -69,6 +70,8 @@ namespace gazebo
 
     private: std::string world_name_;
 
+    private: gazebo::msgs::DiffDriveState diffdrive_state_;
+
     // Gazebo transport details
     private: transport::NodePtr gazebo_node_;
     private: transport::SubscriberPtr sub_;
@@ -76,7 +79,7 @@ namespace gazebo
 
     // Listen to the update event
     // The event is broadcasted every simulation iteration
-    private: event::ConnectionPtr updateValue_;
+    private: event::ConnectionPtr update_connection_;
   };
 }
 #endif

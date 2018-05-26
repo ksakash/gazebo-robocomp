@@ -10,10 +10,21 @@ endforeach()
 set (gazebo_robocomp_msgs
     Laser_msgs.proto
     raysensor.proto
+    diffdrive_state.proto
+    diffdrive.proto
+    vector3d.proto
+    quaternion.proto
+    pose.proto
 )
 
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${gazebo_robocomp_msgs})
 
 add_library(Laser_msgs SHARED ${PROTO_SRCS})
 target_link_libraries(Laser_msgs ${PROTOBUF_LIBRARY})
+
+add_library(diffdrive_msgs SHARED ${PROTO_SRCS})
+target_link_libraries(diffdrive_msgs ${PROTOBUF_LIBRARY})
+
+add_library(diffdrive_state SHARED ${PROTO_SRCS})
+target_link_libraries(diffdrive_state ${PROTOBUF_LIBRARY})
 

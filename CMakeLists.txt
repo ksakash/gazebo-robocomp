@@ -5,7 +5,7 @@ FIND_PACKAGE(Boost 1.40 COMPONENTS system REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(gazebo REQUIRED)
 find_package(PCL 1.3 REQUIRED COMPONENTS common io)
-# find_package(Ice REQUIRED)
+# find_package(Ice REQUIRED COMPONENTS
     # Ice 
     # IceUtil
     # Glacier2 
@@ -13,7 +13,7 @@ find_package(PCL 1.3 REQUIRED COMPONENTS common io)
     # IceGrid 
     # IcePatch2 
     # IceStorm
-
+# )
 
 include(FindBoost)
 
@@ -73,8 +73,8 @@ target_link_libraries(gazebo_robocomp_joint ${GAZEBO_LIBRARIES} ${Boost_LIBRARIS
 add_executable(joint_vel src/vel.cc)
 target_link_libraries(joint_vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
-add_library(gazebo_robocomp_DiffDrive SHARED gazebo_plugins/gazebo_robocomp_DiffDrive.cc gazebo_plugins/gazebo_robocomp_DiffDrive.hh)
-target_link_libraries(gazebo_robocomp_DiffDrive ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
+# add_library(gazebo_robocomp_DiffDrive SHARED gazebo_plugins/gazebo_robocomp_DiffDrive.cc gazebo_plugins/gazebo_robocomp_DiffDrive.hh)
+# target_link_libraries(gazebo_robocomp_DiffDrive ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
 add_executable(My_Robot_Vel src/diff_drive_cmd.cc)
 target_link_libraries(My_Robot_Vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
@@ -99,25 +99,49 @@ target_link_libraries(gazebo_robocomp_RGBD ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/GenericBase.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
-
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/GenericBase.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Laser.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Laser.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Motors.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Motors.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
 
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/exceptions.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/exceptions.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/containers.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/containers.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
 
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/IMU.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/IMU.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/DifferentialRobot.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/DifferentialRobot.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
 add_library(GenericBase SHARED ice-interface/GenericBase.cpp ice-interface/GenericBase.h)
@@ -175,6 +199,24 @@ target_link_libraries(IMU
    /usr/lib/x86_64-linux-gnu/c++11
 )
 
+add_library(DifferentialRobot SHARED ice-interface/DifferentialRobot.cpp ice-interface/DifferentialRobot.h)
+target_link_libraries(DifferentialRobot
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+# add_library(DifferentialRobotI SHARED ice-interface/DifferentialRobotI.cpp ice-interface/DifferentialRobotI.h)
+# target_link_libraries(DifferentialRobotI
+#    ${Boost_LIBRARIES} 
+#    #Ice
+#    #IceUtil 
+#    pthread
+#    /usr/lib/x86_64-linux-gnu/c++11
+# )
+
 add_library(LaserI SHARED ice-interface/LaserI.cpp ice-interface/LaserI.h)
 target_link_libraries(LaserI Laser Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
@@ -183,6 +225,10 @@ target_link_libraries(MotorI Motors Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyicec
 
 add_library(IMUI SHARED ice-interface/IMUI.cpp ice-interface/IMUI.h)
 target_link_libraries(IMUI IMU Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+
+add_library(DifferentialRobotI ice-interface/DifferentialRobotI.cpp ice-interface/DifferentialRobotI.h)
+target_link_libraries(DifferentialRobotI diffdrive_cmd diffdrive_state Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+add_dependencies(DifferentialRobotI diffdrive_cmd diffdrive_state Laser_msgs)
 
 add_executable(server src/server.cpp)
 target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})

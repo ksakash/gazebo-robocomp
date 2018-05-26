@@ -57,13 +57,11 @@ namespace gazebo
 
     cv::Mat image;
     image.create(_height, _width, CV_32FC1);
+    
     memcpy( (float *)image.data,(float *) _image, _width*_height*4 );
 
-    double pAngle;
+    double pAngle; 
     double yAngle;
-
-    // pthread_mutex_lock (&kinect->mutex);
-    cloud->points.resize(_width*_height);
 
     int indicePunto = 0;
 	  pcl::PointXYZRGBA point;
@@ -122,6 +120,23 @@ namespace gazebo
 	sor.filter (*cloud2);
 
 	*cloud = *cloud2;
+
+  float * data= (float*)image.data;
+  for (int i=0; i<image.rows* image.cols; i++) {
+    //std::cout << i << std::endl;
+    int val = (int)(data[i]*1000);
+    imageDepth.data[3*i+0] = (float)val/10000*255;;
+    imageDepth.data[3*i+1] = val>>8;
+    imageDepth.data[3*i+2] = val&0xff;
+
+    if(imageDepth.data[i*3]!=0)
+      imageDepth.data[i*3]=255-imageDepth.data[i*3];
+    imageDepth.data[i*3+1]=imageDepth.data[i*3];
+    imageDepth.data[i*3+2]=imageDepth.data[i*3];
+
+	}
+
+
   }
 
   // Update the controller
