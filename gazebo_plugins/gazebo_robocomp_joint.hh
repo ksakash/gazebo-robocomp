@@ -38,6 +38,8 @@ namespace gazebo
 
         void OnMsg(ConstVector3dPtr &_vel);
 
+        void OnUpdate();
+
     private: 
         std::string sub_topic_name_;
         std::string pub_topic_name_;
@@ -68,7 +70,7 @@ namespace gazebo
 
         // Listen to the update event
         // The event is broadcasted every simulation iteration
-        gazebo::event::ConnectionPtr updateConnection_;
+        gazebo::event::ConnectionPtr update_connection_;
 
         int seed;
     };

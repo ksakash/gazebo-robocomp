@@ -94,6 +94,8 @@ void GazeboRoboCompJoint::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     this->sub_ = this->gazebo_node_->Subscribe(sub_topic_name_, &GazeboRoboCompJoint::OnMsg, this);
     this->pub_ = this->gazebo_node_->Advertise<msgs::Vector3d>(pub_topic_name_);
 
+    this->update_connection_ = joint_->ConnectJointUpdate(boost::bind(&GazeboRoboCompJoint::OnUpdate, this));
+
     std::cerr << "The plugin is listening on '" << sub_topic_name_ << "'" << "topic." << std::endl;
 
 }
@@ -104,16 +106,21 @@ void GazeboRoboCompJoint::SetVelocity(const double &_vel)
     // Set the joint's target velocity.
     this->model_->GetJointController()->SetVelocityTarget(this->joint_->GetScopedName(), _vel);
     std::cerr << "The velocity of the joint is set to: " << _vel << std::endl;
-    msgs::Vector3d msg;
-
-    gazebo::msgs::Set(&msg, ignition::math::Vector3d(_vel, 0, 0));
-
 }
 
 // Handle incoming message
 void GazeboRoboCompJoint::OnMsg(ConstVector3dPtr &_msg)
 {
     this->SetVelocity(_msg->x());
+}
+
+void GazeboRoboCompJoint::OnUpdate()
+{
+    double angular_vel;
+    angular_vel = joint_->GetVelocity(0);
+    gazebo::msgs::Vector3d msg;
+    gazebo::msgs::Set(&msg, ignition::math::Vector3d(angular_vel, 0, 0));
+    pub_->Publish(msg);
 }
 
   // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin.
