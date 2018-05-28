@@ -7,7 +7,7 @@
 using namespace RoboCompDifferentialRobot;
 using namespace std;
 using namespace gazebo; 
-using namespace diffdrive_cmd_msgs::msgs;
+using namespace diffdrive_cmd_msgs::msgs; 
 using namespace diffdrive_state_msgs::msgs;
 
 typedef const boost::shared_ptr<const diffdrive_cmd_msgs::msgs::DiffDriveCmd> DiffDriveCmdPtr;

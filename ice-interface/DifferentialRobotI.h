@@ -7,7 +7,7 @@
 #include <gazebo/common/Events.hh>
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/msgs.hh>
-#include "diffdrive_state.pb.h"
+#include "diffdrive_state.pb.h" 
 #include "diffdrive.pb.h"
 
 using namespace std;
