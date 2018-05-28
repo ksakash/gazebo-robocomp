@@ -1,9 +1,9 @@
 #include "gazebo_robocomp_camera.hh"
 
-#include <gazebo/physics/World.hh>
-#include <gazebo/physics/HingeJoint.hh>
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
+#include <gazebo/physics/World.hh>
+#include <gazebo/physics/HingeJoint.hh>
 #include <gazebo/common/Exception.hh>
 #include <gazebo/transport/transport.hh>
 
@@ -14,9 +14,13 @@
 
 namespace gazebo
 {
+  // Register this plugin with the simulator
+  GZ_REGISTER_SENSOR_PLUGIN(GazeboRoboCompCamera)
+
   GazeboRoboCompCamera::GazeboRoboCompCamera()
   {
     this->seed = 0;
+    std::cerr << "Gazebo Camera Object created" << std::endl;
   }
 
   GazeboRoboCompCamera::~GazeboRoboCompCamera() {}
@@ -45,14 +49,11 @@ namespace gazebo
     {
       image_.create(_height, _width, CV_8UC3);
     }
+    seed++;
     memcpy((unsigned char *) image_.data, &(_image[0]), _width*_height * 3);
     cv::imshow("Display Window", image_);
     std::cerr << "Showing Image" << std::endl;
-
   }
 
-  void OnMsg(ConstImageStampedPtr &_msg) {}
-
-  // Register this plugin with the simulator
-  GZ_REGISTER_SENSOR_PLUGIN(GazeboRoboCompCamera)
+  // void OnMsg(ConstImageStampedPtr &_msg) {}
 }

@@ -17,16 +17,24 @@
 #include <opencv2/highgui/highgui.hpp>
 
 // Gazebo
+#include <gazebo/physics/World.hh>
+#include <gazebo/physics/HingeJoint.hh>
+#include <gazebo/physics/Contact.hh>
 #include <gazebo/physics/physics.hh>
-#include <gazebo/transport/TransportTypes.hh>
-#include <gazebo/msgs/MessageTypes.hh>
+
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
 #include <gazebo/common/Exception.hh>
+
+#include <gazebo/sensors/Sensor.hh>
+#include <gazebo/sensors/sensors.hh>
 #include <gazebo/sensors/SensorTypes.hh>
 #include <gazebo/plugins/CameraPlugin.hh>
+
 #include <gazebo/msgs/msgs.hh>
+#include <gazebo/transport/TransportTypes.hh>
+#include <gazebo/msgs/MessageTypes.hh>
 
 namespace gazebo
 {
@@ -45,7 +53,7 @@ namespace gazebo
       public: void OnNewFrame(const unsigned char *_image,
                          unsigned int _width, unsigned int _height,
                          unsigned int _depth, const std::string &_format);
-      public: void OnMsg(ConstImagePtr &_msg);
+      // public: void OnMsg(ConstImagePtr &_msg);
 
       // copied from CameraPlugin
       private: unsigned int width_, height_, depth_;

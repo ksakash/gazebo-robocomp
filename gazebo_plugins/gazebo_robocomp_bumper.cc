@@ -52,7 +52,7 @@ void GazeboRoboCompBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf
 // Update the controller
 void GazeboRoboCompBumper::OnContact()
 {
-    msgs::Contacts contacts;
+    msgs::Contacts contacts; 
     contacts = this->parent_sensor_->Contacts();
 
     std::cerr << "publishing data on the topic: " << bumper_topic_name_ << std::endl;

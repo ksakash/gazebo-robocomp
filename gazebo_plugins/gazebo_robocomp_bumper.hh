@@ -22,7 +22,6 @@
 #include <gazebo/common/Events.hh>
 
 #include <gazebo/sensors/SensorTypes.hh>
-#include <gazebo/sensors/SensorTypes.hh>
 
 #include <ignition/math/Pose3.hh>
 #include <ignition/math/Quaternion.hh>
@@ -33,8 +32,6 @@
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
 
-// #include <tf/tf.h>
-
 namespace gazebo
 {
   class GazeboRoboCompBumper : public SensorPlugin
@@ -42,7 +39,7 @@ namespace gazebo
     // Constructor
     public: GazeboRoboCompBumper();
 
-    // Destructor
+    // Destructor 
     public: ~GazeboRoboCompBumper();
 
     // Load the plugin
