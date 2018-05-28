@@ -11,7 +11,7 @@
 using namespace std;
 using namespace RoboCompLaser;
 
-class LaserI : public Laser
+class LaserI : public Laser 
 {
 public: 
     LaserI(int argc, char **argv);

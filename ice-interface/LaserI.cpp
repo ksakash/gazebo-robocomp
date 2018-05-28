@@ -4,7 +4,7 @@
 
 using namespace RoboCompLaser;
 using namespace std;
-using namespace gazebo;
+using namespace gazebo; 
 
 LaserI::LaserI(int argc, char **argv) {
     gazebo::client::setup(argc, argv);
