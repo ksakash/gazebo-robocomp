@@ -2,7 +2,7 @@
 <sdf version="1.6">
   <model name="imu">
     <link name="link">
-      <inertial>
+      <inertial> 
         <mass>0.1</mass>
       </inertial>
       <visual name="visual">
