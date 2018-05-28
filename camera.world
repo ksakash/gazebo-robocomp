@@ -29,8 +29,8 @@
           </geometry>
         </visual>
 
-        <sensor name='my_contact' type='contact'>
-          <plugin name="gazebo_robocomp_bumper" filename="libgazebo_robocomp_bumper.so"/>
+        <sensor name='my_camera' type='camera'>
+          <plugin name="gazebo_robocomp_camera" filename="libgazebo_robocomp_camera.so"/>
           <contact>
             <collision>box_collision</collision>
           </contact>
