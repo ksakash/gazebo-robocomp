@@ -4,7 +4,7 @@ project(gazebo_robocomp_pkgs)
 FIND_PACKAGE(Boost 1.40 COMPONENTS system REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(gazebo REQUIRED)
-find_package(PCL 1.3 REQUIRED COMPONENTS common io)
+find_package(PCL REQUIRED)
 # find_package(Ice REQUIRED COMPONENTS
     # Ice 
     # IceUtil
@@ -17,7 +17,7 @@ find_package(PCL 1.3 REQUIRED COMPONENTS common io)
 
 include(FindBoost)
 
-set (CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
+set (CMAKE_CXX_FLAGS "-g -Wall -std=c++11 -lpcl_filters")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 include (FindPkgConfig)
@@ -88,13 +88,25 @@ target_link_libraries(gazebo_robocomp_camera
     ${OGRE_LIBRARIES} 
     ${OGRE-Paging_LIBRARIES} 
     ${OGRE-Terrain_LIBRARIES}
+    CameraPlugin
 )
 
 add_library(gazebo_robocomp_bumper SHARED gazebo_plugins/gazebo_robocomp_bumper.cc gazebo_plugins/gazebo_robocomp_bumper.hh)
 target_link_libraries(gazebo_robocomp_bumper ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
 add_library(gazebo_robocomp_RGBD SHARED gazebo_plugins/gazebo_robocomp_RGBD.cc gazebo_plugins/gazebo_robocomp_RGBD.hh)
-target_link_libraries(gazebo_robocomp_RGBD ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} ${OpenCV_INCLUDE_DIRS} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
+target_link_libraries(gazebo_robocomp_RGBD 
+    ${GAZEBO_LIBRARIES} 
+    ${Boost_LIBRARIES} 
+    ${SDF_LIBRARIES} 
+    ${OpenCV_LIBRARIES} 
+    # ${PCL_COMMON_LIBRARIES} 
+    ${PCL_LIBRARIES}
+    ${OGRE_LIBRARIES} 
+    ${OGRE-Paging_LIBRARIES} 
+    ${OGRE-Terrain_LIBRARIES}
+    DepthCameraPlugin
+)
 
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/GenericBase.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface

@@ -15,6 +15,11 @@
 #include <pcl/visualization/cloud_viewer.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/voxel_grid.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <pcl/ModelCoefficients.h>
+#include <pcl/filters/project_inliers.h>
+
 
 // gazebo stuff
 #include <sdf/Param.hh>

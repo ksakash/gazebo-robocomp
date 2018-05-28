@@ -2,13 +2,21 @@
 
 namespace gazebo
 {
-  GazeboRoboCompRGBD::GazeboRoboCompRGBD() {}
+  GZ_REGISTER_SENSOR_PLUGIN(GazeboRoboCompRGBD)
+
+  GazeboRoboCompRGBD::GazeboRoboCompRGBD() 
+  {
+    this->seed = 0;
+    this->leafSize = 1./100;
+    cloud = NULL;
+  }
   GazeboRoboCompRGBD::~GazeboRoboCompRGBD() {} 
 
   void GazeboRoboCompRGBD::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
   {
     DepthCameraPlugin::Load(_parent, _sdf);
 
+    std::cerr << "Depth Camera plugin loaded." << std::endl;
     this->parent_sensor_ = this->parentSensor;
     this->width_ = this->width;
     this->height_ = this->height;
@@ -48,16 +56,23 @@ namespace gazebo
   void GazeboRoboCompRGBD::OnNewDepthFrame(const float *_image, unsigned int _width, unsigned int _height,
                                unsigned int _depth, const std::string &_format)
   {
-    cloud->points.resize(_width*_height);
-    imageDepth.create(_height, _width, CV_8UC3);
-
+    if (seed == 0)
+    {
+      pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud_(new pcl::PointCloud<pcl::PointXYZRGBA>);
+      cloud = cloud_;
+      cloud->width = _width;
+      cloud->height = _height;
+      cloud->points.resize(cloud->width*cloud->height);
+      imageDepth.create(_height, _width, CV_8UC3);
+    }
+    
     double hfov = 1.04719755;
 	  double fl = ((double)_width) / (2.0 *tan(hfov/2.0));
 	  double pointCloudCutoff = 0.001;
 
     cv::Mat image;
     image.create(_height, _width, CV_32FC1);
-    
+  
     memcpy( (float *)image.data,(float *) _image, _width*_height*4 );
 
     double pAngle; 
@@ -68,7 +83,7 @@ namespace gazebo
 	  point.r      = 255;
 	  point.g      = 0;
 	  point.b      = 0;
-
+  
     for(unsigned int x = 0 ; x < _width ; x++){
       for(unsigned int y = 0; y < _height; y++){
         unsigned int indice = y*_width + x;
@@ -135,8 +150,6 @@ namespace gazebo
     imageDepth.data[i*3+2]=imageDepth.data[i*3];
 
 	}
-
-
   }
 
   // Update the controller
@@ -150,9 +163,14 @@ namespace gazebo
   void GazeboRoboCompRGBD::OnNewImageFrame(const unsigned char *_image, unsigned int _width, unsigned int _height,
                                unsigned int _depth, const std::string &_format)
   {
-    this->imageRGB.create(_height, _width, CV_8UC3);
+    // this->imageRGB.create(_height, _width, CV_8UC3);
+    if (seed == 0)
+    {
+      imageRGB.create(_height, _width, CV_8UC3);
+    }
+    seed++;
+
     memcpy((unsigned char *) imageRGB.data, &(_image[0]), _width*_height * 3);
     cv::imshow("Display Window - Depth Image", imageRGB);
   }
-  GZ_REGISTER_SENSOR_PLUGIN(GazeboRoboCompRGBD)
 }
