@@ -50,7 +50,7 @@ namespace gazebo
       public: void Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf);
 
       // Update the controller
-      // public: void OnNewFrame(const unsigned char *_image, unsigned int _width, unsigned int _height, unsigned int _depth, const std::string &_format);
+      public: void OnNewFrame(const unsigned char *_image, unsigned int _width, unsigned int _height, unsigned int _depth, const std::string &_format);
       public: void OnMsg(ConstImageStampedPtr &_msg);
       public: void myMemCpy(void *dest, std::string &new_image, size_t n);
 
@@ -80,10 +80,12 @@ namespace gazebo
 
       private: cv::Mat image_;
       private: cv::Mat image;
+      private: std::string new_image;
 
       // Topic used for communication
       private: std::string topic_name_;
       private: int seed;
+      private: int seed_;
       private: int saveCount;
 
   };

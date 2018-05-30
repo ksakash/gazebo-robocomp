@@ -11,9 +11,15 @@
 
 #include "gazebo_robocomp_DiffDrive.hh"
 #include "diffdrive_state.pb.h"
-#include "diffdrive.proto.pb.h"
+#include "diffdrive.pb.h"
 
 using namespace std;
+
+using namespace diffdrive_cmd_msgs::msgs;
+using namespace diffdrive_state_msgs::msgs;
+
+typedef const boost::shared_ptr<const diffdrive_state_msgs::msgs::DiffDriveState> ConstDiffDriveStatePtr;
+typedef const boost::shared_ptr<const diffdrive_cmd_msgs::msgs::DiffDriveCmd> ConstDiffDriveCmdPtr;
 
 namespace gazebo
 {
@@ -95,14 +101,14 @@ void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sd
   if (!this->sdf_->HasElement("topicName"))
   {
       std::cerr <<  "DiffDrive plugin missing <topicName>, defaults to /world" << std::endl;
-      this->sub_topic_name ="/my_robot";
+      this->sub_topic_name_ ="/my_robot";
   }
   else
-      this->sub_topic_name = this->sdf_->Get<std::string>("topicName");
+      this->sub_topic_name_ = this->sdf_->Get<std::string>("topicName");
 
   this->wheel_separation_ = this->left_joint_->GetAnchor(0).Distance(this->right_joint_->GetAnchor(0));
 
-  pub_topic_name_ = "/diffdrive/data"
+  pub_topic_name_ = "/diffdrive/data";
 
   // Subscribe to the topic, and register a callback
   this->sub_ = this->gazebo_node_->Subscribe(sub_topic_name_, &GazeboRoboCompDiffDrive::OnMsg, this);
@@ -119,78 +125,84 @@ void GazeboRoboCompDiffDrive::SetVelocity(const double &_vel, const double &_ang
 
     std::cerr << "Setting linear velocity: " << _vel << " angular velocity: " << _ang_vel << std::endl;
 
-    right_wheel_vel_ = _vel -  _ang_vel*wheel_separation_/2.0;
-    left_wheel_vel_ = _vel + _ang_vel*wheel_separation_/2.0;
+    this->right_wheel_vel_ = _vel -  _ang_vel*wheel_separation_/2.0;
+    this->left_wheel_vel_ = _vel + _ang_vel*wheel_separation_/2.0;
 
-    this->model_->GetJointController()->SetVelocityTarget(this->right_joint_->GetScopedName(), right_wheel_vel);
-    this->model_->GetJointController()->SetVelocityTarget(this->left_joint_->GetScopedName(), left_wheel_vel);  
+    this->model_->GetJointController()->SetVelocityTarget(this->right_joint_->GetScopedName(), this->right_wheel_vel_);
+    this->model_->GetJointController()->SetVelocityTarget(this->left_joint_->GetScopedName(), this->left_wheel_vel_);  
 }
 
 /////////////////////////////////////////////////////////
 void GazeboRoboCompDiffDrive::OnMsg(ConstDiffDriveCmdPtr &_msg)
 {
-  this->SetVelocity(_msg->linear_vel(), _msg->angular_pos());
-  std::cerr << "Got a command for linear velocity of " << _msg->x() << " and angular velocity of " << _msg->y() << std::endl;
+  this->SetVelocity(_msg->linear_vel(), _msg->angular_vel());
+  std::cerr << "Got a command for linear velocity of " << _msg->linear_vel() << " and angular velocity of " << _msg->angular_vel() << std::endl;
 }
 
 void GazeboRoboCompDiffDrive::OnUpdate() 
 {
-  ignition::math::Pose3d base_pose_ = model_->WorldPose();
-  ignition::math::Vector3d base_lin_vel_ =model_->WorldLinearVel();
-  ignition::math::Vector3d base_lin_accln = model_->WorldLinearAccel();
-  ignition::math::Vector3d base_ang_vel = _model->WorldAngularVel();
-  ignition::math::Vector3d base_ang_accln = _model->WorldAngularAccel();
+  gazebo::math::Pose base_pose = model_->GetWorldPose();
+  gazebo::math::Vector3 base_lin_vel =model_->GetWorldLinearVel();
+  gazebo::math::Vector3 base_lin_accln = model_->GetWorldLinearAccel();
+  gazebo::math::Vector3 base_ang_vel = model_->GetWorldAngularVel();
+  gazebo::math::Vector3 base_ang_accln = model_->GetWorldAngularAccel();
 
-  gazebo::msgs::DiffDriveState msg;
+  ignition::math::Pose3d base_pose_ = base_pose.Ign();
+  ignition::math::Vector3d base_lin_vel_ = base_lin_vel.Ign();
+  ignition::math::Vector3d base_lin_accln_ = base_lin_accln.Ign();
+  ignition::math::Vector3d base_ang_vel_ = base_ang_vel.Ign();
+  ignition::math::Vector3d base_ang_accln_ = base_ang_accln.Ign();
 
-  deque<gazebo::msgs::Vector3dPtr> states;
-  gazebo::msgs::PosePtr pose_;
+  diffdrive_state_msgs::msgs::DiffDriveState msg;
+
+  deque<gazebo::msgs::Vector3d*> states;
+  gazebo::msgs::Pose* pose_;
 
   pose_ = msg.mutable_pose();
-  states.push_back(msg.mutable_angVel());
-  states.push_back(msg.mutable_angAccln());
-  states.push_back(msg.mutable_linVel());
-  states.push_back(msg.mutable_linAccln());
+  states.push_back(msg.mutable_angvel());
+  states.push_back(msg.mutable_angaccln());
+  states.push_back(msg.mutable_linvel());
+  states.push_back(msg.mutable_linaccln());
   
-  deque<gazebo::msgs::Vector3dPtr>::iterator it;
+  deque<gazebo::msgs::Vector3d*>::iterator it;
 
   it = states.begin();
-  (*it)->set_x() = base_ang_vel.X();
-  (*it)->set_y() = base_ang_vel.Y();
-  (*it)->set_z() = base_ang_vel.Z();
+  (*it)->set_x(base_ang_vel_.X());
+  (*it)->set_y(base_ang_vel_.Y());
+  (*it)->set_z(base_ang_vel_.Z());
   
-  i++;
+  it++;
 
-  (*it)->set_x() = base_ang_accln.X();
-  (*it)->set_y() = base_ang_accln.Y();
-  (*it)->set_z() = base_ang_accln.Z();
+  (*it)->set_x(base_ang_accln_.X());
+  (*it)->set_y(base_ang_accln_.Y());
+  (*it)->set_z(base_ang_accln_.Z());
   
-  i++;
+  it++;
 
-  (*it)->set_x() = base_lin_vel.X();
-  (*it)->set_y() = base_lin_vel.Y();
-  (*it)->set_z() = base_lin_vel.Z();
+  (*it)->set_x(base_lin_vel_.X());
+  (*it)->set_y(base_lin_vel_.Y());
+  (*it)->set_z(base_lin_vel_.Z());
   
-  i++;
+  it++;
 
-  (*it)->set_x() = base_lin_accln.X();
-  (*it)->set_y() = base_lin_accln.Y();
-  (*it)->set_z() = base_lin_accln.Z();
+  (*it)->set_x(base_lin_accln_.X());
+  (*it)->set_y(base_lin_accln_.Y());
+  (*it)->set_z(base_lin_accln_.Z());
 
-  gazebo::msgs::Vector3dPtr pos_;
-  gazebo::msgs::QuaternionPtr rot_;
+  gazebo::msgs::Vector3d* pos_;
+  gazebo::msgs::Quaternion* rot_;
 
-  pos_ = pose_->mutable_rot();
-  rot_ = pose_->mutable_pos();
+  pos_ = pose_->mutable_position();
+  rot_ = pose_->mutable_orientation();
 
-  pos_->set_x() = base_pose_->pos().X();
-  pos_->set_y() = base_pose_->pos().Y();
-  pos_->set_z() = base_pose_->pos().Z();
+  pos_->set_x(base_pose_.Pos().X());
+  pos_->set_y(base_pose_.Pos().Y());
+  pos_->set_z(base_pose_.Pos().Z());
 
-  rot_->set_w() = base_pose_->rot().W();
-  rot_->set_x() = base_pose_->rot().X();
-  rot_->set_y() = base_pose_->rot().Y();
-  rot_->set_z() = base_pose_->rot().Z();  
+  rot_->set_w(base_pose_.Rot().W());
+  rot_->set_x(base_pose_.Rot().X());
+  rot_->set_y(base_pose_.Rot().Y());
+  rot_->set_z(base_pose_.Rot().Z());  
 
   pub_->Publish(msg);
 }

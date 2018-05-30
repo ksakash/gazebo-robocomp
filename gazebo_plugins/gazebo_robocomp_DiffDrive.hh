@@ -17,6 +17,13 @@
 #include <gazebo/common/Events.hh>
 #include <gazebo/math/Angle.hh>
 
+#include "diffdrive_state.pb.h"
+#include "diffdrive.pb.h"
+
+typedef const boost::shared_ptr<const diffdrive_state_msgs::msgs::DiffDriveState> ConstDiffDriveStatePtr;
+typedef const boost::shared_ptr<const diffdrive_cmd_msgs::msgs::DiffDriveCmd> ConstDiffDriveCmdPtr;
+
+
 namespace gazebo
 {
   class GazeboRoboCompDiffDrive : public ModelPlugin
@@ -37,7 +44,7 @@ namespace gazebo
     public: void SetVelocity(const double &_vel, const double &_ang_vel);
 
     // Handle incoming messages
-    private: void OnMsg(ConstVector3dPtr &_msg);
+    private: void OnMsg(ConstDiffDriveCmdPtr &_msg);
 
     // Topic used for communication
     private: std::string sub_topic_name_;
@@ -70,7 +77,7 @@ namespace gazebo
 
     private: std::string world_name_;
 
-    private: gazebo::msgs::DiffDriveState diffdrive_state_;
+    private: diffdrive_state_msgs::msgs::DiffDriveState diffdrive_state_;
 
     // Gazebo transport details
     private: transport::NodePtr gazebo_node_;
