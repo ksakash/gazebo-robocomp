@@ -21,7 +21,7 @@ DifferentialRobotI::DifferentialRobotI(int argc, char **argv) {
     this->gazebo_node_ = gazebo::transport::NodePtr(new gazebo::transport::Node());
     this->gazebo_node_->Init();
     this->sub_ = this->gazebo_node_->Subscribe(sub_topic_name_, &DifferentialRobotI::callback, this);
-    this->pub_ = this->gazebo_node_->Advertise<::DiffDriveCmd>(pub_topic_name_);
+    this->pub_ = this->gazebo_node_->Advertise<DiffDriveCmd>(pub_topic_name_);
 } 
 
 DifferentialRobotI::~DifferentialRobotI() {

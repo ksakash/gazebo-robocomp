@@ -19,6 +19,7 @@ set (gazebo_robocomp_msgs
     jointMotor_params.proto
     jointMotorState.proto
     motor_goal_position.proto
+    image.proto
 
 )
 
@@ -44,3 +45,6 @@ target_link_libraries(jointMotorState ${PROTOBUF_LIBRARY})
 
 add_library(jointMotor_params SHARED ${PROTO_SRCS})
 target_link_libraries(jointMotor_params ${PROTOBUF_LIBRARY})
+
+add_library(image SHARED ${PROTO_SRCS})
+target_link_libraries(image ${PROTOBUF_LIBRARY})
