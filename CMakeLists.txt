@@ -156,6 +156,13 @@ message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/DifferentialRo
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Camera.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Camera.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
 add_library(GenericBase SHARED ice-interface/GenericBase.cpp ice-interface/GenericBase.h)
 target_link_libraries(GenericBase 
    ${Boost_LIBRARIES} 
@@ -220,14 +227,17 @@ target_link_libraries(DifferentialRobot
    /usr/lib/x86_64-linux-gnu/c++11
 )
 
-# add_library(DifferentialRobotI SHARED ice-interface/DifferentialRobotI.cpp ice-interface/DifferentialRobotI.h)
-# target_link_libraries(DifferentialRobotI
-#    ${Boost_LIBRARIES} 
-#    #Ice
-#    #IceUtil 
-#    pthread
-#    /usr/lib/x86_64-linux-gnu/c++11
-# )
+add_library(Camera SHARED ice-interface/Camera.cpp ice-interface/Camera.h)
+target_link_libraries(Camera
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+add_library(CameraI SHARED ice-interface/CameraI.cpp ice-interface/CameraI.h)
+target_link_libraries(CameraI Camera Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 add_library(LaserI SHARED ice-interface/LaserI.cpp ice-interface/LaserI.h)
 target_link_libraries(LaserI Laser Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
@@ -239,8 +249,8 @@ add_library(IMUI SHARED ice-interface/IMUI.cpp ice-interface/IMUI.h)
 target_link_libraries(IMUI IMU Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 add_library(DifferentialRobotI ice-interface/DifferentialRobotI.cpp ice-interface/DifferentialRobotI.h)
-target_link_libraries(DifferentialRobotI diffdrive_cmd diffdrive_state Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
-add_dependencies(DifferentialRobotI diffdrive_cmd diffdrive_state Laser_msgs)
+target_link_libraries(DifferentialRobotI DifferentialRobot diffdrive_cmd diffdrive_state Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+add_dependencies(DifferentialRobotI diffdrive_cmd diffdrive_state)
 
 add_executable(server src/server.cpp)
 target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
