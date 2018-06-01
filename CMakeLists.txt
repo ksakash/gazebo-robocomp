@@ -172,6 +172,14 @@ message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/RGBD.ice
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/bumper.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/bumper.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
 add_library(GenericBase SHARED ice-interface/GenericBase.cpp ice-interface/GenericBase.h)
 target_link_libraries(GenericBase 
    ${Boost_LIBRARIES} 
@@ -253,6 +261,18 @@ target_link_libraries(RGBD
    pthread
    /usr/lib/x86_64-linux-gnu/c++11
 )
+
+add_library(bumper SHARED ice-interface/bumper.cpp ice-interface/bumper.h)
+target_link_libraries(bumper
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
+add_library(bumperI SHARED ice-interface/bumperI.cpp ice-interface/bumperI.h)
+target_link_libraries(bumperI bumper Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 add_library(CameraI SHARED ice-interface/CameraI.cpp ice-interface/CameraI.h)
 target_link_libraries(CameraI Camera Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
