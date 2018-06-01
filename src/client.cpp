@@ -1,5 +1,5 @@
 #include <Ice/Ice.h>
-#include "LaserI.h"
+#include "Laser.h"
 #include <stdexcept>
  
 using namespace std;
