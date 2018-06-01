@@ -297,4 +297,4 @@ add_executable(server src/server.cpp)
 target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 add_executable(client src/client.cpp)
-target_link_libraries(client ${GAZEBO_LIBRARIES} LaserI ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES})
+target_link_libraries(client ${GAZEBO_LIBRARIES} Laser ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES})
