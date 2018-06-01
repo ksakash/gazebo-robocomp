@@ -159,7 +159,16 @@ message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/DifferentialRo
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Camera.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
+
 message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Camera.ice
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
+execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/RGBD.ice
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
+)
+
+message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/RGBD.ice
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
 )
 
@@ -236,8 +245,20 @@ target_link_libraries(Camera
    /usr/lib/x86_64-linux-gnu/c++11
 )
 
+add_library(RGBD SHARED ice-interface/RGBD.cpp ice-interface/RGBD.h)
+target_link_libraries(RGBD
+   ${Boost_LIBRARIES} 
+   #Ice
+   #IceUtil 
+   pthread
+   /usr/lib/x86_64-linux-gnu/c++11
+)
+
 add_library(CameraI SHARED ice-interface/CameraI.cpp ice-interface/CameraI.h)
 target_link_libraries(CameraI Camera Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+
+add_library(RGBDI SHARED ice-interface/RGBDI.cpp ice-interface/RGBDI.h)
+target_link_libraries(RGBDI RGBD Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
 
 add_library(LaserI SHARED ice-interface/LaserI.cpp ice-interface/LaserI.h)
 target_link_libraries(LaserI Laser Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
