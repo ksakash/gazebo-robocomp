@@ -59,54 +59,13 @@ link_directories(
 
 add_definitions(${PCL_DEFINITIONS})
 add_subdirectory(gazebo_robocomp_msgs)
-
-add_library(gazebo_robocomp_laser SHARED gazebo_plugins/gazebo_robocomp_laser.cc gazebo_plugins/gazebo_robocomp_laser.hh)
-target_link_libraries(gazebo_robocomp_laser Laser_msgs ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES} RayPlugin)
-add_dependencies(gazebo_robocomp_laser Laser_msgs)
-
-add_library(gazebo_robocomp_IMU SHARED gazebo_plugins/gazebo_robocomp_IMU.cc gazebo_plugins/gazebo_robocomp_IMU.hh)
-target_link_libraries(gazebo_robocomp_IMU ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
-add_library(gazebo_robocomp_joint SHARED gazebo_plugins/gazebo_robocomp_joint.cc gazebo_plugins/gazebo_robocomp_joint.hh)
-target_link_libraries(gazebo_robocomp_joint ${GAZEBO_LIBRARIES} ${Boost_LIBRARIS} ${SDF_LIBRARIES} )
+add_subdirectory(gazebo_plugins)
 
 add_executable(joint_vel src/vel.cc)
 target_link_libraries(joint_vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
-add_library(gazebo_robocomp_DiffDrive SHARED gazebo_plugins/gazebo_robocomp_DiffDrive.cc gazebo_plugins/gazebo_robocomp_DiffDrive.hh)
-target_link_libraries(gazebo_robocomp_DiffDrive ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
 add_executable(My_Robot_Vel src/diff_drive_cmd.cc)
 target_link_libraries(My_Robot_Vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
-add_library(gazebo_robocomp_camera SHARED gazebo_plugins/gazebo_robocomp_camera.cc gazebo_plugins/gazebo_robocomp_camera.hh)
-target_link_libraries(gazebo_robocomp_camera 
-    ${GAZEBO_LIBRARIES} 
-    ${Boost_LIBRARIES} 
-    ${SDF_LIBRARIES} 
-    ${OpenCV_LIBRARIES} 
-    ${OGRE_LIBRARIES} 
-    ${OGRE-Paging_LIBRARIES} 
-    ${OGRE-Terrain_LIBRARIES}
-    CameraPlugin
-)
-
-add_library(gazebo_robocomp_bumper SHARED gazebo_plugins/gazebo_robocomp_bumper.cc gazebo_plugins/gazebo_robocomp_bumper.hh)
-target_link_libraries(gazebo_robocomp_bumper ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
-add_library(gazebo_robocomp_RGBD SHARED gazebo_plugins/gazebo_robocomp_RGBD.cc gazebo_plugins/gazebo_robocomp_RGBD.hh)
-target_link_libraries(gazebo_robocomp_RGBD 
-    ${GAZEBO_LIBRARIES} 
-    ${Boost_LIBRARIES} 
-    ${SDF_LIBRARIES} 
-    ${OpenCV_LIBRARIES} 
-    # ${PCL_COMMON_LIBRARIES} 
-    ${PCL_LIBRARIES}
-    ${OGRE_LIBRARIES} 
-    ${OGRE-Paging_LIBRARIES} 
-    ${OGRE-Terrain_LIBRARIES}
-    DepthCameraPlugin
-)
 
 execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/GenericBase.ice
 	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
