@@ -34,92 +34,92 @@ file(RENAME JointMotor.cpp src/JointMotor.cpp)
 add_library(GenericBase SHARED src/GenericBase.cpp include/GenericBase.h)
 target_link_libraries(GenericBase 
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(Laser SHARED src/Laser.cpp include/Laser.h)
 target_link_libraries(Laser
    GenericBase
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(Motors SHARED src/Motors.cpp include/Motors.h)
 target_link_libraries(Motors
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(containers SHARED src/containers.cpp include/containers.h)
 target_link_libraries(containers
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(Exceptions SHARED src/Exceptions.cpp include/Exceptions.h)
 target_link_libraries(Exceptions
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(IMU SHARED src/IMU.cpp include/IMU.h)
 target_link_libraries(IMU
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(DifferentialRobot SHARED src/DifferentialRobot.cpp include/DifferentialRobot.h)
 target_link_libraries(DifferentialRobot
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(Camera SHARED src/Camera.cpp include/Camera.h)
 target_link_libraries(Camera
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(RGBD SHARED src/RGBD.cpp include/RGBD.h)
 target_link_libraries(RGBD
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 add_library(bumper SHARED src/bumper.cpp include/bumper.h)
 target_link_libraries(bumper
    ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
+   Ice
+   IceUtil 
    pthread
-   /usr/lib/x86_64-linux-gnu/c++11
+   #/usr/lib/x86_64-linux-gnu/c++11
 )
 
 

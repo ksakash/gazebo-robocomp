@@ -20,6 +20,6 @@ target_link_libraries(MotorI Motors Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyicec
 add_library(IMUI SHARED src/IMUI.cpp include/IMUI.h)
 target_link_libraries(IMUI IMU Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
-add_library(DifferentialRobotI src/DifferentialRobotI.cpp include/DifferentialRobotI.h)
-target_link_libraries(DifferentialRobotI DifferentialRobot diffdrive_cmd diffdrive_state Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
-add_dependencies(DifferentialRobotI diffdrive_cmd diffdrive_state)
+add_library(DifferentialRobotI SHARED src/DifferentialRobotI.cpp include/DifferentialRobotI.h)
+target_link_libraries(DifferentialRobotI DifferentialRobot diffdrive_msgs diffdrive_state Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+add_dependencies(DifferentialRobotI diffdrive_msgs diffdrive_state)
