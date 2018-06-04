@@ -1,10 +1,6 @@
 build/
 
-ice-interface/*.h
-ice-interface/*.cpp
-
-!ice-interface/*I.h
-!ice-interface/*I.cpp
-
+slice_cpp/include/
+slice_cpp/src/
 
 
