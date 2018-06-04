@@ -1,7 +1,7 @@
 #ifndef EXCEPTIONS_ICE
 #define EXCEPTIONS_ICE
 
-module RoboComp{
+module RoboCompExceptions{
     exception RoboCompException
     {
         // Error description.

@@ -2,7 +2,7 @@
 #ifndef CONTAINERS_ICE
 #define CONTAINERS_ICE
 
-module jderobot{
+module RoboCompContainers{
     // A sequence of bytes.
     sequence<byte> ByteSeq;
   

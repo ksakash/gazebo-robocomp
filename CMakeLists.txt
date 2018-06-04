@@ -14,7 +14,6 @@ find_package(PCL REQUIRED)
     # IcePatch2 
     # IceStorm
 # )
-
 include(FindBoost)
 
 set (CMAKE_CXX_FLAGS "-g -Wall -std=c++11 -lpcl_filters")
@@ -60,175 +59,14 @@ link_directories(
 add_definitions(${PCL_DEFINITIONS})
 add_subdirectory(gazebo_robocomp_msgs)
 add_subdirectory(gazebo_plugins)
+add_subdirectory(slice)
+add_subdirectory(slice_cpp)
 
 add_executable(joint_vel src/vel.cc)
 target_link_libraries(joint_vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 
 add_executable(My_Robot_Vel src/diff_drive_cmd.cc)
 target_link_libraries(My_Robot_Vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/GenericBase.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/GenericBase.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Laser.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Laser.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Motors.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Motors.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/exceptions.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/exceptions.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/containers.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/containers.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/IMU.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/IMU.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/DifferentialRobot.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/DifferentialRobot.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Camera.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/Camera.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/RGBD.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/RGBD.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-execute_process(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/bumper.ice
-	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-message(COMMAND slice2cpp ${CMAKE_CURRENT_LIST_DIR}/ice-interface/bumper.ice
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/ice-interface
-)
-
-add_library(GenericBase SHARED ice-interface/GenericBase.cpp ice-interface/GenericBase.h)
-target_link_libraries(GenericBase 
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(Laser SHARED ice-interface/Laser.cpp ice-interface/Laser.h)
-target_link_libraries(Laser
-   GenericBase
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(Motors SHARED ice-interface/Motors.cpp ice-interface/Motors.h)
-target_link_libraries(Motors
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(containers SHARED ice-interface/containers.cpp ice-interface/containers.h)
-target_link_libraries(containers
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(exceptions SHARED ice-interface/exceptions.cpp ice-interface/exceptions.h)
-target_link_libraries(exceptions
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(IMU SHARED ice-interface/IMU.cpp ice-interface/IMU.h)
-target_link_libraries(IMU
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(DifferentialRobot SHARED ice-interface/DifferentialRobot.cpp ice-interface/DifferentialRobot.h)
-target_link_libraries(DifferentialRobot
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(Camera SHARED ice-interface/Camera.cpp ice-interface/Camera.h)
-target_link_libraries(Camera
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(RGBD SHARED ice-interface/RGBD.cpp ice-interface/RGBD.h)
-target_link_libraries(RGBD
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
-
-add_library(bumper SHARED ice-interface/bumper.cpp ice-interface/bumper.h)
-target_link_libraries(bumper
-   ${Boost_LIBRARIES} 
-   #Ice
-   #IceUtil 
-   pthread
-   /usr/lib/x86_64-linux-gnu/c++11
-)
 
 add_library(bumperI SHARED ice-interface/bumperI.cpp ice-interface/bumperI.h)
 target_link_libraries(bumperI bumper Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
