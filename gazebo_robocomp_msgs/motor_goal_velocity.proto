@@ -1,4 +1,4 @@
-package joint_goal_vel_msgs.msgs;
+package motor_goal_vel_msgs.msgs;
 
 message MotorGoalVelocity
 {
