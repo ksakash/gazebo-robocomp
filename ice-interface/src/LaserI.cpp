@@ -13,6 +13,7 @@ LaserI::LaserI(int argc, char **argv) {
     this->gazebo_node_ = gazebo::transport::NodePtr(new gazebo::transport::Node());
     this->gazebo_node_->Init();
     this->laser_scan_sub_ = this->gazebo_node_->Subscribe(topic_name_, &LaserI::callback, this);
+    this->seed_ = 0;
     
     int i = 0;
 
@@ -64,19 +65,22 @@ void LaserI::callback(ConstLaserScanStampedPtr &_msg) {
         this->LaserScanValues[i].dist = _msg->scan().ranges(i);
     }
     
-    this->LaserConfigData.maxMeasures = _msg->scan().count();
-    this->LaserConfigData.maxDegrees = _msg->scan().angle_max();
-    this->LaserConfigData.maxRange = _msg->scan().range_min();
-    this->LaserConfigData.minRange = _msg->scan().range_max();
-    this->LaserConfigData.iniRange = _msg->scan().ranges(0);
-    this->LaserConfigData.endRange = _msg->scan().ranges(i-1);
-    this->LaserConfigData.angleRes = _msg->scan().angle_step();
-    this->LaserConfigData.angleIni = _msg->scan().angle_min();
-    this->LaserConfigData.device = this->device_name_;
-    this->LaserConfigData.driver = "gazebo_driver";
-    this->LaserConfigData.sampleRate = 0;
-    this->LaserConfigData.staticConf = 0;
-    this->LaserConfigData.cluster = 0;
+    if (this->seed < 2) {
+        this->LaserConfigData.maxMeasures = _msg->scan().count();
+        this->LaserConfigData.maxDegrees = _msg->scan().angle_max();
+        this->LaserConfigData.maxRange = _msg->scan().range_min();
+        this->LaserConfigData.minRange = _msg->scan().range_max();
+        this->LaserConfigData.iniRange = _msg->scan().ranges(0);
+        this->LaserConfigData.endRange = _msg->scan().ranges(i-1);
+        this->LaserConfigData.angleRes = _msg->scan().angle_step();
+        this->LaserConfigData.angleIni = _msg->scan().angle_min();
+        this->LaserConfigData.device = this->device_name_;
+        this->LaserConfigData.driver = "gazebo_driver";
+        this->LaserConfigData.sampleRate = 0;
+        this->LaserConfigData.staticConf = 0;
+        this->LaserConfigData.cluster = 0;
+        this->seed++;
+    }
 } 
 
 TLaserData LaserI::getLaserAndBStateData(RoboCompGenericBase::TBaseState& bState, const Ice::Current&) 

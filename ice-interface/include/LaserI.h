@@ -27,4 +27,5 @@ private:
     private: string device_name_;
     private: TLaserData LaserScanValues;
     private: LaserConfData LaserConfigData;
+    private: int seed_;
 }; 

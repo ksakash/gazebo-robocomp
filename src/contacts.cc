@@ -49,10 +49,14 @@ int main(int _argc, char **_argv)
 
     gazebo::transport::SubscriberPtr sub = node->Subscibe("/robocomp/contacts", &OnMsg);
 
+    while (true) {
+        gazebo::common::Time::MSleep(10);
+    }
+
     // Make sure to shut everything down.
 #if GAZEBO_MAJOR_VERSION < 6
-  gazebo::shutdown();
+    gazebo::shutdown();
 #else
-  gazebo::client::shutdown();
+    gazebo::client::shutdown();
 #endif
 }
