@@ -65,7 +65,7 @@ void LaserI::callback(ConstLaserScanStampedPtr &_msg) {
         this->LaserScanValues[i].dist = _msg->scan().ranges(i);
     }
     
-    if (this->seed < 2) {
+    if (this->seed_ < 2) {
         this->LaserConfigData.maxMeasures = _msg->scan().count();
         this->LaserConfigData.maxDegrees = _msg->scan().angle_max();
         this->LaserConfigData.maxRange = _msg->scan().range_min();
@@ -79,7 +79,7 @@ void LaserI::callback(ConstLaserScanStampedPtr &_msg) {
         this->LaserConfigData.sampleRate = 0;
         this->LaserConfigData.staticConf = 0;
         this->LaserConfigData.cluster = 0;
-        this->seed++;
+        this->seed_++;
     }
 } 
 
