@@ -12,6 +12,9 @@ target_link_libraries(gazebo_robocomp_IMU ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES}
 add_library(gazebo_robocomp_joint SHARED src/gazebo_robocomp_joint.cc include/gazebo_robocomp_joint.hh)
 target_link_libraries(gazebo_robocomp_joint ${GAZEBO_LIBRARIES} ${Boost_LIBRARIS} ${SDF_LIBRARIES} )
 
+add_library(gazebo_robocomp_jointmotor SHARED src/gazebo_robocomp_jointmotor.cc include/gazebo_robocomp_jointmotor.hh)
+target_link_libraries(gazebo_robocomp_jointmotor motor_goal_pos_list motor_goal_vel_list motor_params_list motor_state_list ${GAZEBO_LIBRARIES} ${Boost_LIBRARIS} ${SDF_LIBRARIES} )
+
 add_library(gazebo_robocomp_DiffDrive SHARED src/gazebo_robocomp_DiffDrive.cc include/gazebo_robocomp_DiffDrive.hh)
 target_link_libraries(gazebo_robocomp_DiffDrive diffdrive_msgs diffdrive_state ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 add_dependencies(gazebo_robocomp_DiffDrive diffdrive_msgs diffdrive_state)
