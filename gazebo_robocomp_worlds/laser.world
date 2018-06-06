@@ -3,17 +3,17 @@
   <world name="gazebo_robocomp_laser">
     <!-- A global light source -->
     <include>
-      <uri>file:///home/ironman/gazebo-robocomp/gazebo_robocomp_models/sun</uri>
+      <uri>file://../gazebo_robocomp_models/sun</uri>
     </include>
     <!-- A ground plane -->
     <include>
-      <uri>file:///home/ironman/gazebo-robocomp/gazebo_robocomp_models/ground_plane</uri>
+      <uri>file://../gazebo_robocomp_models/ground_plane</uri>
     </include>
 
     <!-- A testing model that includes the Velodyne sensor model -->
     <model name="hokuyo">
       <include>
-        <uri>file:///home/ironman/gazebo-robocomp/gazebo_robocomp_models/noisy_laser</uri>
+        <uri>file://../gazebo_robocomp_models/noisy_laser</uri>
       </include>
 
       <!-- Attach the plugin to this model -->

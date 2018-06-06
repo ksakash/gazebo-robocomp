@@ -2,11 +2,11 @@
 <sdf version="1.6">
   <world name="default">
     <include>
-      <uri>file:///home/ironman/software/gazebo_models/ground_plane</uri>
+      <uri>file://../gazebo_robocomp_models/ground_plane</uri>
     </include>
 
      <include>
-      <uri>file:///home/ironman/software/gazebo_models/sun</uri>
+      <uri>file://../gazebo_robocomp_models/sun</uri>
     </include>
 
     <model name="box">
