@@ -1,6 +1,6 @@
 package joint_motor_params.msgs;
 
-message joint_motor_params
+message JointMotorParams
 {
     required double maxVel = 1;
     required double maxAngle = 2;
