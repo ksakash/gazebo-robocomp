@@ -34,6 +34,8 @@ void MotorI::setPosition(const MotorGoalPosition& goal, const Ice::Current&) {
     msg.set_position(goal.position);
     msg.set_maxvel(goal.maxSpeed);
     msg.set_name(goal.name);
+
+    pos_pub_->Publish(msg);
 }
 
 void MotorI::setVelocity(const MotorGoalVelocity& goal, const Ice::Current&) {
@@ -41,6 +43,7 @@ void MotorI::setVelocity(const MotorGoalVelocity& goal, const Ice::Current&) {
     msg.set_velocity(goal.velocity);
     msg.set_maxaccel(goal.maxAcc);
     msg.set_name(goal.name);
+    vel_pub_->Publish(msg);
 }
 
 MotorState MotorI::getState(const Ice::Current&) {
@@ -52,6 +55,7 @@ void MotorI::setZeroPos(const Ice::Current&) {
     msg.set_position(0);
     msg.set_maxvel(10);
     msg.set_name("");
+    pos_pub_->Publish(msg);
 }
 
 void MotorI::callback(ConstJointMotorStatePtr &_msg) {
