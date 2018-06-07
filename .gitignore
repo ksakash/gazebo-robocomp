@@ -2,5 +2,4 @@ build/
 
 slice_cpp/include/
 slice_cpp/src/
-
-
+.vscode/
