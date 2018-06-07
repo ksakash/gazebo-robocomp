@@ -117,9 +117,6 @@ void GazeboRoboCompJointMotor::OnUpdate()
     motor_state_list::msgs::MotorStateMap state_msg;
     motor_params_list::msgs::MotorParamsList params_msg;
 
-    joint_motor_params::msgs::JointMotorParams* motor_params;
-    jointMotorState_msgs::msgs::JointMotorState* motor_state;
-
     for (int i = 0; i < model_->GetJointCount(); i++) {
         params_msg.mutable_joint_motor_params(i)->set_name(joint_array_[i]->GetScopedName());
         params_msg.mutable_joint_motor_params(i)->set_maxvel(0);
