@@ -112,7 +112,7 @@ void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sd
 
   // Subscribe to the topic, and register a callback
   this->sub_ = this->gazebo_node_->Subscribe(sub_topic_name_, &GazeboRoboCompDiffDrive::OnMsg, this);
-  this->pub_ = this->gazebo_node_->Advertise<gazebo::msgs::Pose>(pub_topic_name_);
+  this->pub_ = this->gazebo_node_->Advertise<diffdrive_state_msgs::msgs::DiffDriveState>(pub_topic_name_);
   // this->diffdrive_pub_ = this->gazebo_mode_->Advertise<gazebo::msgs::>(diffdrive_state_topic_name_);
 
   // listen to the update event (broadcast every simulation iteration)
