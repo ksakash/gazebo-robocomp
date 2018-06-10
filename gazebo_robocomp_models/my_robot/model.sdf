@@ -441,6 +441,10 @@
       <left_joint>chassis_wheel_1_revolute</left_joint>
       <right_joint>chassis_wheel_2_revolute</right_joint>
       <torque>5</torque>
+      <max_linear_vel>10</max_linear_vel>
+      <max_angular_vel>10</max_angular_vel>
+      <wheel_radius>0.3</wheel_radius>
+      <device>gazebo_robocomp_DiffDrive</device>
     </plugin>
     </model>
 </sdf>
