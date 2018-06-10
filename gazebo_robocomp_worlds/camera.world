@@ -70,7 +70,11 @@
         </visual>
 
         <sensor name='cam_sensor' type='camera' always_on='1' update_rate='10'>
-          <plugin name="gazebo_robocomp_camera" filename="libgazebo_robocomp_camera.so"/>
+          <plugin name="gazebo_robocomp_camera" filename="libgazebo_robocomp_camera.so">
+            <focalLength>1</focalLength>
+            <size>1 1 1</size>
+            <FPS>30</FPS>
+          </plugin>
           <origin pose='0 0 0 0 0 1.57'/>
           <camera>
             <horizontal_fov angle='1.57'/>

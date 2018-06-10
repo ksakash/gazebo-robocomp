@@ -65,18 +65,20 @@
         </visual>
 
         <sensor name='cam_sensor' type='depth' always_on='1' update_rate='10'>
-          <plugin name="gazebo_robocomp_RGBD" filename="libgazebo_robocomp_RGBD.so"/>
+          <plugin name="gazebo_robocomp_RGBD" filename="libgazebo_robocomp_RGBD.so">
+            <size>1 1 1</size>
+            <focalLength>1</focalLength>
+            <FPS>30</FPS>
+          </plugin>
           <origin pose='0 0 0 0 0 1.57'/>
           <camera>
             <horizontal_fov angle='1.57'/>
             <image width='640' height='480' format='R8G8B8'/>
             <clip near='0.5' far='5'/>
           </camera>
-          <!-- <plugin name='camera_dump' filename='libcamera_dump.so'/> -->
         </sensor>
       </link>
 
-      <!-- <plugin name="camera_move" filename="libcamera_move.so"/> -->
     </model>
 
     <model name="box2">
