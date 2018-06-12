@@ -75,3 +75,7 @@ target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${ea
 
 add_executable(client src/client.cpp)
 target_link_libraries(client ${GAZEBO_LIBRARIES} Laser ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES})
+
+add_executable(keyboardController src/keyboardController.cpp)
+target_link_libraries(keyboardController ${GAZEBO_LIBRARIES} diffdrive_msgs ${Boost_LIBRARIES})
+add_dependencies(keyboardController diffdrive_msgs)

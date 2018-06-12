@@ -126,30 +126,29 @@ namespace gazebo
       }
     }
 
-	pcl::VoxelGrid<pcl::PointXYZRGBA> sor;
-	sor.setInputCloud (cloud);
-	sor.setLeafSize (this->leafSize, this->leafSize, this->leafSize);
+    pcl::VoxelGrid<pcl::PointXYZRGBA> sor;
+    sor.setInputCloud (cloud);
+    sor.setLeafSize (this->leafSize, this->leafSize, this->leafSize);
 
-	pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud2(new pcl::PointCloud<pcl::PointXYZRGBA>);
+    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud2(new pcl::PointCloud<pcl::PointXYZRGBA>);
 
-	sor.filter (*cloud2);
+    sor.filter (*cloud2);
 
-	*cloud = *cloud2;
+    *cloud = *cloud2;
 
-  float * data= (float*)image.data;
-  for (int i=0; i<image.rows* image.cols; i++) {
-    //std::cout << i << std::endl;
-    int val = (int)(data[i]*1000);
-    imageDepth.data[3*i+0] = (float)val/10000*255;;
-    imageDepth.data[3*i+1] = val>>8;
-    imageDepth.data[3*i+2] = val&0xff;
+    float * data= (float*)image.data;
+    for (int i=0; i<image.rows* image.cols; i++) {
+      //std::cout << i << std::endl;
+      int val = (int)(data[i]*1000);
+      imageDepth.data[3*i+0] = (float)val/10000*255;;
+      imageDepth.data[3*i+1] = val>>8;
+      imageDepth.data[3*i+2] = val&0xff;
 
-    if(imageDepth.data[i*3]!=0)
-      imageDepth.data[i*3]=255-imageDepth.data[i*3];
-    imageDepth.data[i*3+1]=imageDepth.data[i*3];
-    imageDepth.data[i*3+2]=imageDepth.data[i*3];
-
-	}
+      if(imageDepth.data[i*3]!=0)
+        imageDepth.data[i*3]=255-imageDepth.data[i*3];
+      imageDepth.data[i*3+1]=imageDepth.data[i*3];
+      imageDepth.data[i*3+2]=imageDepth.data[i*3];
+    }
   }
 
   // Update the controller
@@ -169,7 +168,6 @@ namespace gazebo
       imageRGB.create(_height, _width, CV_8UC3);
     }
     seed++;
-
     memcpy((unsigned char *) imageRGB.data, &(_image[0]), _width*_height * 3);
     cv::imshow("Display Window - Depth Image", imageRGB);
   }

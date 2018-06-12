@@ -2,8 +2,6 @@
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
 
-// Gazebo's API has changed between major releases. These changes are
-// accounted for with #if..#endif blocks in this file.
 #if GAZEBO_MAJOR_VERSION < 6
 #include <gazebo/gazebo.hh>
 #else
