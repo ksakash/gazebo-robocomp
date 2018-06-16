@@ -76,10 +76,11 @@ namespace gazebo
 
     protected: float leafSize;
 
-    public: cv::Mat imageRGB;
-    public: cv::Mat imageDepth;
-    public: pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud;
-    public: int seed;
+    private: cv::Mat imageRGB;
+    private: cv::Mat imageDepth;
+    private: pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud;
+    private: int seed;
+    private: int seed_;
 
   };
 }

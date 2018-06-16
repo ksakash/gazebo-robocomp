@@ -7,6 +7,7 @@ namespace gazebo
   GazeboRoboCompRGBD::GazeboRoboCompRGBD() 
   {
     this->seed = 0;
+    this->seed_ = 0;
     this->leafSize = 1./100;
     cloud = NULL;
   }
@@ -64,6 +65,7 @@ namespace gazebo
       cloud->height = _height;
       cloud->points.resize(cloud->width*cloud->height);
       imageDepth.create(_height, _width, CV_8UC3);
+      seed++;
     }
     
     double hfov = 1.04719755;
@@ -163,12 +165,11 @@ namespace gazebo
                                unsigned int _depth, const std::string &_format)
   {
     // this->imageRGB.create(_height, _width, CV_8UC3);
-    if (seed == 0)
+    if (seed_ == 0)
     {
       imageRGB.create(_height, _width, CV_8UC3);
+      seed_++;
     }
-    seed++;
     memcpy((unsigned char *) imageRGB.data, &(_image[0]), _width*_height * 3);
-    cv::imshow("Display Window - Depth Image", imageRGB);
   }
 }
