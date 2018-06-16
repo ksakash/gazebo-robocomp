@@ -66,7 +66,7 @@ void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sd
     std::cerr << "Left Joint is working." << std::endl;
   }
 
-  this->right_joint_ = _model->GetJoints()[0];
+  this->right_joint_ = _model->GetJoints()[1];
 
   if (right_joint_ == NULL)
   {
@@ -117,6 +117,9 @@ void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sd
 
   // listen to the update event (broadcast every simulation iteration)
   this->update_connection_ = event::Events::ConnectWorldUpdateBegin ( boost::bind ( &GazeboRoboCompDiffDrive::OnUpdate, this ) );
+
+  std::cerr << "left joint: " << this->left_joint_->GetScopedName() << std::endl;
+  std::cerr << "right joint: " << this->right_joint_->GetScopedName() << std::endl;
 }
 ////////////////////////////////////////////////////////
 void GazeboRoboCompDiffDrive::SetVelocity(const double &_vel, const double &_ang_vel)

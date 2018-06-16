@@ -65,10 +65,19 @@ add_subdirectory(slice_cpp)
 add_subdirectory(ice-interface)
 
 add_executable(joint_vel src/vel.cc)
-target_link_libraries(joint_vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
+target_link_libraries(joint_vel 
+    motor_goal_pos_list 
+    motor_goal_vel_list 
+    motor_params_list 
+    motor_state_list 
+    ${GAZEBO_LIBRARIES} 
+    ${Boost_LIBRARIES} 
+    ${SDF_LIBRARIES}
+)
 
 add_executable(My_Robot_Vel src/diff_drive_cmd.cc)
-target_link_libraries(My_Robot_Vel ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
+target_link_libraries(My_Robot_Vel diffdrive_msgs ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
+add_dependencies(My_Robot_Vel diffdrive_msgs)
 
 add_executable(server src/server.cpp)
 target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
