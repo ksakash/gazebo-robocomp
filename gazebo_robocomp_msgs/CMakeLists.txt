@@ -9,12 +9,8 @@ endforeach()
 
 set (gazebo_robocomp_msgs
     Laser_msgs.proto
-    raysensor.proto
     diffdrive_state.proto
     diffdrive.proto
-    vector3d.proto
-    quaternion.proto
-    pose.proto
     motor_goal_velocity.proto
     jointMotor_params.proto
     jointMotorState.proto
