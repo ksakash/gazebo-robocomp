@@ -15,11 +15,11 @@
 
 using namespace std;
 
-using namespace diffdrive_cmd_msgs::msgs;
-using namespace diffdrive_state_msgs::msgs;
+using namespace diffdrive_cmd::msgs;
+using namespace diffdrive_state::msgs;
 
-typedef const boost::shared_ptr<const diffdrive_state_msgs::msgs::DiffDriveState> ConstDiffDriveStatePtr;
-typedef const boost::shared_ptr<const diffdrive_cmd_msgs::msgs::DiffDriveCmd> ConstDiffDriveCmdPtr;
+typedef const boost::shared_ptr<const diffdrive_state::msgs::DiffDriveState> ConstDiffDriveStatePtr;
+typedef const boost::shared_ptr<const diffdrive_cmd::msgs::DiffDriveCmd> ConstDiffDriveCmdPtr;
 
 namespace gazebo
 {
@@ -112,7 +112,7 @@ void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sd
 
   // Subscribe to the topic, and register a callback
   this->sub_ = this->gazebo_node_->Subscribe(sub_topic_name_, &GazeboRoboCompDiffDrive::OnMsg, this);
-  this->pub_ = this->gazebo_node_->Advertise<diffdrive_state_msgs::msgs::DiffDriveState>(pub_topic_name_);
+  this->pub_ = this->gazebo_node_->Advertise<diffdrive_state::msgs::DiffDriveState>(pub_topic_name_);
   // this->diffdrive_pub_ = this->gazebo_mode_->Advertise<gazebo::msgs::>(diffdrive_state_topic_name_);
 
   // listen to the update event (broadcast every simulation iteration)
@@ -156,7 +156,7 @@ void GazeboRoboCompDiffDrive::OnUpdate()
   ignition::math::Vector3d base_ang_vel_ = base_ang_vel.Ign();
   ignition::math::Vector3d base_ang_accln_ = base_ang_accln.Ign();
 
-  diffdrive_state_msgs::msgs::DiffDriveState msg;
+  diffdrive_state::msgs::DiffDriveState msg;
 
   deque<gazebo::msgs::Vector3d*> states;
   gazebo::msgs::Pose* pose_;

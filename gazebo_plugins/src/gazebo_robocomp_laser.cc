@@ -12,7 +12,7 @@
 #include "gazebo_robocomp_laser.hh"
 
 #include "raysensor.pb.h"
-#include "Laser_msgs.pb.h"
+#include "laser_data.pb.h"
 
 
 namespace gazebo

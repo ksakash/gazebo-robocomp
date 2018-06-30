@@ -20,13 +20,13 @@
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
 
-#include <jointMotor_params.pb.h>
-#include <jointMotorState.pb.h>
+#include <jointmotor_params.pb.h>
+#include <jointmotor_state.pb.h>
 #include <motor_goal_position.pb.h>
 #include <motor_goal_velocity.pb.h>
 
-typedef const boost::shared_ptr<const motor_goal_vel_msgs::msgs::MotorGoalVelocity> ConstMotorGoalVelocityPtr;
-typedef const boost::shared_ptr<const motor_goal_position_msgs::msgs::MotorGoalPosition> ConstMotorGoalPositionPtr;
+typedef const boost::shared_ptr<const motor_goal_vel::msgs::MotorGoalVelocity> ConstMotorGoalVelocityPtr;
+typedef const boost::shared_ptr<const motor_goal_position::msgs::MotorGoalPosition> ConstMotorGoalPositionPtr;
 
 namespace gazebo
 {

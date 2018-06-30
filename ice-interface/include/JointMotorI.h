@@ -8,6 +8,11 @@
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/msgs.hh>
 
+#include <jointmotor_params.pb.h>
+#include <jointmotor_state.pb.h>
+#include <motor_goal_position.pb.h>
+#include <motor_goal_velocity.pb.h>
+
 #include <motor_goal_pos_list.pb.h>
 #include <motor_goal_vel_list.pb.h>
 #include <motor_params_list.pb.h>

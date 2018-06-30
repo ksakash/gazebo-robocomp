@@ -18,10 +18,10 @@
 #include <gazebo/math/Angle.hh>
 
 #include "diffdrive_state.pb.h"
-#include "diffdrive.pb.h"
+#include "diffdrive_cmd.pb.h"
 
-typedef const boost::shared_ptr<const diffdrive_state_msgs::msgs::DiffDriveState> ConstDiffDriveStatePtr;
-typedef const boost::shared_ptr<const diffdrive_cmd_msgs::msgs::DiffDriveCmd> ConstDiffDriveCmdPtr;
+typedef const boost::shared_ptr<const diffdrive_state::msgs::DiffDriveState> ConstDiffDriveStatePtr;
+typedef const boost::shared_ptr<const diffdrive_cmd::msgs::DiffDriveCmd> ConstDiffDriveCmdPtr;
 
 
 namespace gazebo
@@ -77,7 +77,7 @@ namespace gazebo
 
     private: std::string world_name_;
 
-    private: diffdrive_state_msgs::msgs::DiffDriveState diffdrive_state_;
+    private: diffdrive_state::msgs::DiffDriveState diffdrive_state_;
 
     // Gazebo transport details
     private: transport::NodePtr gazebo_node_;

@@ -1,17 +1,15 @@
 #include "DifferentialRobotI.h"
 #include <gazebo/gazebo_client.hh>
 #include <gazebo/gazebo_config.h>
-#include "diffdrive.pb.h"
-#include "diffdrive_state.pb.h"
  
 using namespace RoboCompDifferentialRobot;
 using namespace std;
 using namespace gazebo; 
-using namespace diffdrive_cmd_msgs::msgs; 
-using namespace diffdrive_state_msgs::msgs;
+using namespace diffdrive_cmd::msgs; 
+using namespace diffdrive_state::msgs;
 
-typedef const boost::shared_ptr<const diffdrive_cmd_msgs::msgs::DiffDriveCmd> DiffDriveCmdPtr;
-typedef const boost::shared_ptr<const diffdrive_state_msgs::msgs::DiffDriveState> DiffDriveStatePtr;
+typedef const boost::shared_ptr<const diffdrive_cmd::msgs::DiffDriveCmd> DiffDriveCmdPtr;
+typedef const boost::shared_ptr<const diffdrive_state::msgs::DiffDriveState> DiffDriveStatePtr;
 
 DifferentialRobotI::DifferentialRobotI(int argc, char **argv) {
     gazebo::client::setup(argc, argv);

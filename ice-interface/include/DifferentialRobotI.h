@@ -8,15 +8,15 @@
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/msgs.hh>
 #include "diffdrive_state.pb.h" 
-#include "diffdrive.pb.h"
+#include "diffdrive_cmd.pb.h"
 
 using namespace std;
 using namespace RoboCompDifferentialRobot;
-using namespace diffdrive_cmd_msgs::msgs;
-using namespace diffdrive_state_msgs::msgs;
+using namespace diffdrive_cmd::msgs;
+using namespace diffdrive_state::msgs;
 
-typedef const boost::shared_ptr<const diffdrive_cmd_msgs::msgs::DiffDriveCmd> DiffDriveCmdPtr;
-typedef const boost::shared_ptr<const diffdrive_state_msgs::msgs::DiffDriveState> DiffDriveStatePtr;
+typedef const boost::shared_ptr<const diffdrive_cmd::msgs::DiffDriveCmd> DiffDriveCmdPtr;
+typedef const boost::shared_ptr<const diffdrive_state::msgs::DiffDriveState> DiffDriveStatePtr;
 
 class DifferentialRobotI : public DifferentialRobot 
 {

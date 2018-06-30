@@ -8,12 +8,12 @@
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/msgs.hh>
 
-#include <jointMotor_params.pb.h>
-#include <jointMotorState.pb.h>
+#include <jointmotor_params.pb.h>
+#include <jointmotor_state.pb.h>
 #include <motor_goal_position.pb.h>
 #include <motor_goal_velocity.pb.h>
 
-typedef const boost::shared_ptr<const jointMotorState_msgs::msgs::JointMotorState> ConstJointMotorStatePtr;
+typedef const boost::shared_ptr<const joint_motor_state::msgs::JointMotorState> ConstJointMotorStatePtr;
 
 using namespace std;
 using namespace RoboCompMotors;
