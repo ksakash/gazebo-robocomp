@@ -12,7 +12,7 @@
 #include "gazebo_robocomp_laser.hh"
 
 #include "raysensor.pb.h"
-#include "laser_data.pb.h"
+#include "Laser_msgs.pb.h"
 
 
 namespace gazebo
@@ -43,26 +43,32 @@ void GazeboRoboCompLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
     if (!this->parent_ray_sensor_)
         gzthrow("GazeboRoboCompLaser controller requires a Ray Sensor as its parent");
 
-    this->gazebo_node_ = gazebo::transport::NodePtr(new gazebo::transport::Node());
+    this->topic_name_ = "/gazebo_robocomp_laser/data";
+    this->gazebo_node_ = transport::NodePtr(new transport::Node());
     this->gazebo_node_->Init(this->world_name_);
-    
-    this->topic_name_ = this->parent_ray_sensor_->Topic();
-
-    std::cerr << "Topic Name: " << this->topic_name_ << std::endl;
-
-    this->laser_scan_sub_ =
-          this->gazebo_node_->Subscribe(this->parent_ray_sensor_->Topic(),
-          &GazeboRoboCompLaser::OnScan, this);
-
-    std::cerr << "Data is getting published on the topic: " << topic_name_ << std::endl;
-    std::cerr << "Do 'gz topic -e " << topic_name_ << "'" << "to see the data published" << std::endl;
+    this->pub_ = this->gazebo_node_->Advertise<Laser_msgs::msgs::gazebo_robocomp_laser>(topic_name_);
 }
 
-///////////////////////////////////////////////////
+void GazeboRoboCompLaser::OnNewLaserScans() {
+    Laser_msgs::msgs::gazebo_robocomp_laser msg;
+    msg.mutable_laser()->set_horizontal_max_angle(this->parent_ray_sensor_->AngleMax().Radian());
+    msg.mutable_laser()->set_horizontal_min_angle(this->parent_ray_sensor_->AngleMin().Radian());
+    msg.mutable_laser()->set_horizontal_resolution(this->parent_ray_sensor_->AngleResolution());
+    msg.mutable_laser()->set_horizontal_samples(this->parent_ray_sensor_->RayCount());
+    msg.mutable_laser()->set_vertical_samples(this->parent_ray_sensor_->VerticalRangeCount());
+    msg.mutable_laser()->set_vertical_resolution(this->parent_ray_sensor_->VerticalAngleResolution());
+    msg.mutable_laser()->set_vertical_min_angle(this->parent_ray_sensor_->VerticalAngleMin().Radian());
+    msg.mutable_laser()->set_vertical_max_angle(this->parent_ray_sensor_->VerticalAngleMax().Radian());
+    msg.mutable_laser()->set_range_max(this->parent_ray_sensor_->RangeMax());
+    msg.mutable_laser()->set_range_min(this->parent_ray_sensor_->RangeMin());
+    msg.mutable_laser()->set_range_resolution(this->parent_ray_sensor_->RangeResolution());
 
-void GazeboRoboCompLaser::OnNewLaserScans() {}
+	for (int i = 0; i < this->parent_ray_sensor_->RayCount(); i++){
+	    msg.set_range(i, this->parent_ray_sensor_->LaserShape()->GetRange(i));
+    }
 
-void GazeboRoboCompLaser::OnScan(ConstLaserScanStampedPtr &_msg) {}
+    pub_->Publish(msg);
+}
 
 // Register this plugin with the simulator
 GZ_REGISTER_SENSOR_PLUGIN(GazeboRoboCompLaser)

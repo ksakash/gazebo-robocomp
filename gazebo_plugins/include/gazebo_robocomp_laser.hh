@@ -31,16 +31,12 @@ namespace gazebo
         // Load the plugin
         public: void Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf);
 
-        // Updated on each simulation iteration
         public: void OnNewLaserScans();
-        
-        public: void OnScan(ConstLaserScanStampedPtr &_msg);
-        
-        // Topic used for communication
-        private: std::string topic_name_; 
 
         // World name
         private: std::string world_name_;
+
+        private: std::string topic_name_;
 
         // Pointer to the World
         private: physics::WorldPtr world_;
@@ -50,16 +46,8 @@ namespace gazebo
         // SDF root element
         private: sdf::ElementPtr sdf_;
 
-        // Gazebo transport details
         private: gazebo::transport::NodePtr gazebo_node_;
-        private: gazebo::transport::SubscriberPtr laser_scan_sub_;
-        private: gazebo::transport::PublisherPtr laser_scan_pub_;
-
-        // Listen to the update event
-        // The event is broadcasted every simulation iteration
-        private: gazebo::event::ConnectionPtr updateConnection_;
-
-        private: int seed;
+        private: gazebo::transport::PublisherPtr pub_;
     };
 }
 #endif
