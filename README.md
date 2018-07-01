@@ -12,6 +12,14 @@ plugins and ice interfaces.<br/>
 **slice_cpp:** Contains the boiler plate code generated from the slice definitions.<br/>
 **src:** Contains utilities to test the gazebo plugins.<br/>
 
+## Dependencies
+Inorder to install the repo you must have some packages preinstalled on your system. Some of the dependencies of `gazebo-robocomp` package are:
+
+1. [Gazebo-7](http://gazebosim.org/): Installation instruction [here](http://gazebosim.org/tutorials?tut=install_ubuntu&cat=install).
+2. [Zeroc-ICE-3.6](https://doc.zeroc.com/ice/3.6): Installation instruction [here](https://zeroc.com/downloads/ice/3.6).
+
+**Note:** If you have already installed `ROS` after `indigo`, then you don't need to install gazebo because it gets installed automatically with `ROS`.
+
 ## Installation
 To install the repo from source:
 
