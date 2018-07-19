@@ -1,6 +1,12 @@
 #include <Ice/Ice.h>
 #include "Motors.h"
+
+#if GAZEBO_MAJOR_VERSION < 6
 #include <gazebo/gazebo.hh>
+#else
+#include <gazebo/gazebo_client.hh>
+#endif
+
 #include <gazebo/transport/transport.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>

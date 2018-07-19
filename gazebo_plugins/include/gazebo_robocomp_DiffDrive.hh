@@ -8,7 +8,13 @@
 
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
-#include <gazebo/gazebo.hh> 
+
+#if GAZEBO_MAJOR_VERSION < 6
+#include <gazebo/gazebo.hh>
+#else
+#include <gazebo/gazebo_client.hh>
+#endif
+
 #include <gazebo/physics/physics.hh>
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/MessageTypes.hh>
