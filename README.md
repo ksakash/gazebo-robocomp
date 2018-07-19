@@ -17,6 +17,7 @@ Inorder to install the repo you must have some packages preinstalled on your sys
 
 1. [Gazebo-7](http://gazebosim.org/): Installation instruction [here](http://gazebosim.org/tutorials?tut=install_ubuntu&cat=install).
 2. [Zeroc-ICE-3.6](https://doc.zeroc.com/ice/3.6): Installation instruction [here](https://zeroc.com/downloads/ice/3.6).
+3. [OpenCV](https://opencv.org): Installation instruction [here](https://www.learnopencv.com/install-opencv3-on-ubuntu/).
 
 **Note:** If you have already installed `ROS` after `indigo`, then you don't need to install gazebo because it gets installed automatically with `ROS`.
 
