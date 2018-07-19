@@ -28,8 +28,10 @@
 #include <motor_params_list.pb.h>
 #include <motor_state_list.pb.h>
 
-typedef const boost::shared_ptr<const motor_goal_vel_list::msgs::MotorGoalVelocityList> ConstMotorGoalVelocityListPtr;
-typedef const boost::shared_ptr<const motor_goal_pos_list::msgs::MotorGoalPositionList> ConstMotorGoalPositionListPtr;
+typedef const boost::shared_ptr<const 
+    motor_goal_vel_list::msgs::MotorGoalVelocityList> ConstMotorGoalVelocityListPtr;
+typedef const boost::shared_ptr<const 
+    motor_goal_pos_list::msgs::MotorGoalPositionList> ConstMotorGoalPositionListPtr;
 
 namespace gazebo
 {

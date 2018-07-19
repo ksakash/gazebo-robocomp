@@ -19,7 +19,8 @@ using namespace RoboCompLaser;
 #include "raysensor.pb.h"
 #include "laser_data.pb.h"
 
-typedef const boost::shared_ptr<const laser_data::msgs::gazebo_robocomp_laser> ConstGazeboRoboCompLaserPtr;
+typedef const boost::shared_ptr<const 
+    laser_data::msgs::gazebo_robocomp_laser> ConstGazeboRoboCompLaserPtr;
 
 class LaserI : public Laser 
 {
@@ -28,7 +29,8 @@ public:
     ~LaserI();
     virtual TLaserData getLaserData(const Ice::Current&) override;
     virtual LaserConfData getLaserConfData(const Ice::Current&) override; 
-    virtual RoboCompLaser::TLaserData getLaserAndBStateData(RoboCompGenericBase::TBaseState&, const ::Ice::Current&) override;
+    virtual RoboCompLaser::TLaserData getLaserAndBStateData(RoboCompGenericBase::TBaseState&, 
+                                                            const ::Ice::Current&) override;
 private:
     void callback(ConstGazeboRoboCompLaserPtr &_msg);
     private: gazebo::transport::NodePtr gazebo_node_;

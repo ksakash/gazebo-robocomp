@@ -100,7 +100,7 @@ void GazeboRoboCompDiffDrive::Load(physics::ModelPtr _model, sdf::ElementPtr _sd
   // this->diffdrive_pub_ = this->gazebo_mode_->Advertise<gazebo::msgs::>(diffdrive_state_topic_name_);
 
   // listen to the update event (broadcast every simulation iteration)
-  this->update_connection_ = event::Events::ConnectWorldUpdateBegin ( boost::bind ( &GazeboRoboCompDiffDrive::OnUpdate, this ) );
+  this->update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&GazeboRoboCompDiffDrive::OnUpdate, this));
 
   std::cerr << "left joint: " << this->left_joint_->GetScopedName() << std::endl;
   std::cerr << "right joint: " << this->right_joint_->GetScopedName() << std::endl;
@@ -123,7 +123,9 @@ void GazeboRoboCompDiffDrive::SetVelocity(const double &_vel, const double &_ang
 void GazeboRoboCompDiffDrive::OnMsg(ConstDiffDriveCmdPtr &_msg)
 {
   this->SetVelocity(_msg->linear_vel(), _msg->angular_vel());
-  std::cerr << "Got a command for linear velocity of " << _msg->linear_vel() << " and angular velocity of " << _msg->angular_vel() << std::endl;
+  std::cerr << "Got a command for linear velocity of " 
+            << _msg->linear_vel() << " and angular velocity of " 
+            << _msg->angular_vel() << std::endl;
 }
 
 void GazeboRoboCompDiffDrive::OnUpdate() 

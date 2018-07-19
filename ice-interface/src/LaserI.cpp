@@ -9,7 +9,8 @@ using namespace gazebo;
 #include "raysensor.pb.h"
 #include "laser_data.pb.h"
 
-typedef const boost::shared_ptr<const laser_data::msgs::gazebo_robocomp_laser> ConstGazeboRoboCompLaserPtr;
+typedef const boost::shared_ptr<const 
+    laser_data::msgs::gazebo_robocomp_laser> ConstGazeboRoboCompLaserPtr;
 
 LaserI::LaserI(int argc, char **argv) {
 #if GAZEBO_MAJOR_VERSION < 6
@@ -74,7 +75,8 @@ void LaserI::callback(ConstGazeboRoboCompLaserPtr &_msg) {
 
     for(i = 0; i < _msg->range_size(); i++)
     {
-        this->LaserScanValues[i].angle = _msg->laser().horizontal_resolution()*i + _msg->laser().horizontal_min_angle();
+        this->LaserScanValues[i].angle = _msg->laser().horizontal_resolution()*i +
+                                         _msg->laser().horizontal_min_angle();
         this->LaserScanValues[i].dist = _msg->range(i);
     }
     

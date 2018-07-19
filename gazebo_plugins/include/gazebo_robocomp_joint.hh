@@ -26,8 +26,10 @@
 #include <motor_goal_position.pb.h>
 #include <motor_goal_velocity.pb.h>
 
-typedef const boost::shared_ptr<const motor_goal_vel::msgs::MotorGoalVelocity> ConstMotorGoalVelocityPtr;
-typedef const boost::shared_ptr<const motor_goal_position::msgs::MotorGoalPosition> ConstMotorGoalPositionPtr;
+typedef const boost::shared_ptr<const 
+    motor_goal_vel::msgs::MotorGoalVelocity> ConstMotorGoalVelocityPtr;
+typedef const boost::shared_ptr<const 
+    motor_goal_position::msgs::MotorGoalPosition> ConstMotorGoalPositionPtr;
 
 namespace gazebo
 {

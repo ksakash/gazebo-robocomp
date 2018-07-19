@@ -7,9 +7,6 @@ namespace gazebo
 
   GazeboRoboCompCamera::GazeboRoboCompCamera()
   {
-    this->seed = 0;
-    this->saveCount = 0;
-    this->seed_ = 0;
     std::cerr << "Gazebo Camera Object created" << std::endl;
   }
 
@@ -48,7 +45,9 @@ namespace gazebo
     }
   }
 
-  void GazeboRoboCompCamera::OnNewFrame(const unsigned char *_image, unsigned int _width, unsigned int _height, unsigned int _depth, const std::string &_format)
+  void GazeboRoboCompCamera::OnNewFrame(const unsigned char *_image, unsigned int _width, 
+                                        unsigned int _height, unsigned int _depth, 
+                                        const std::string &_format)
   {
     msgs::ImageStamped msg;
     msgs::Set(msg.mutable_time(), 0);

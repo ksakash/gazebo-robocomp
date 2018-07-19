@@ -61,7 +61,7 @@ namespace gazebo
     // Topic used for communication
     private: std::string sub_topic_name_;
     private: std::string pub_topic_name_;
-    // private: std::string diffdrive_state_topic_name_;
+
     // Pointer to the model
     private: physics::ModelPtr model_;
 

@@ -29,12 +29,18 @@ public:
     virtual TRGBDParams getRGBDParams(const Ice::Current&) override;
     virtual void  setRegistration(Registration value, const Ice::Current&) override;
     virtual Registration getRegistration(const Ice::Current&) override;
-    virtual void  getData(imgType& rgbMatrix, depthType& distanceMatrix, RoboCompJointMotor::MotorStateMap& hState, RoboCompGenericBase::TBaseState& bState, const Ice::Current&) override;
-    virtual void  getDepthInIR(depthType& distanceMatrix, RoboCompJointMotor::MotorStateMap& hState, RoboCompGenericBase::TBaseState& bState, const Ice::Current&) override;
-    virtual void  getImage(ColorSeq& color, DepthSeq& depth, PointSeq& points, RoboCompJointMotor::MotorStateMap& hState, RoboCompGenericBase::TBaseState& bState, const Ice::Current&) override;
-	virtual	void  getDepth(DepthSeq& depth, RoboCompJointMotor::MotorStateMap& hState, RoboCompGenericBase::TBaseState& bState, const Ice::Current&) override;
-	virtual	void  getRGB(ColorSeq& color, RoboCompJointMotor::MotorStateMap& hState, RoboCompGenericBase::TBaseState& bState, const Ice::Current&) override;
-	virtual	void  getXYZ(PointSeq& points, RoboCompJointMotor::MotorStateMap& hState, RoboCompGenericBase::TBaseState& bState, const Ice::Current&) override;
+    virtual void  getData(imgType&, depthType&, RoboCompJointMotor::MotorStateMap&, 
+                        RoboCompGenericBase::TBaseState&, const Ice::Current&) override;
+    virtual void  getDepthInIR(depthType&, RoboCompJointMotor::MotorStateMap&, 
+                                RoboCompGenericBase::TBaseState&, const Ice::Current&) override;
+    virtual void  getImage(ColorSeq&, DepthSeq&, PointSeq&, RoboCompJointMotor::MotorStateMap&, 
+                        RoboCompGenericBase::TBaseState&, const Ice::Current&) override;
+	virtual	void  getDepth(DepthSeq&, RoboCompJointMotor::MotorStateMap&, 
+                        RoboCompGenericBase::TBaseState&, const Ice::Current&) override;
+	virtual	void  getRGB(ColorSeq&, RoboCompJointMotor::MotorStateMap&, 
+                        RoboCompGenericBase::TBaseState&, const Ice::Current&) override;
+	virtual	void  getXYZ(PointSeq&, RoboCompJointMotor::MotorStateMap&, 
+                        RoboCompGenericBase::TBaseState&, const Ice::Current&) override;
 
 private:
     void callback(ConstImageStampedPtr &_msg);

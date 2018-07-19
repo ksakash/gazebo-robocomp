@@ -25,7 +25,9 @@ namespace gazebo
     public: GazeboRoboCompRGBD();
     public: ~GazeboRoboCompRGBD();
     public: void Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf);
-    public: void OnNewDepthFrame(const float *_image, unsigned int _width, unsigned int _height, unsigned int _depth, const std::string &_format); 
+    public: void OnNewDepthFrame(const float *_image, unsigned int _width, 
+                                unsigned int _height, unsigned int _depth, 
+                                const std::string &_format); 
 
     // copied into DepthCameraPlugin
     protected: unsigned int width_, height_, depth_;

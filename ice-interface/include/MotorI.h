@@ -19,7 +19,8 @@
 #include <motor_goal_position.pb.h>
 #include <motor_goal_velocity.pb.h>
 
-typedef const boost::shared_ptr<const joint_motor_state::msgs::JointMotorState> ConstJointMotorStatePtr;
+typedef const boost::shared_ptr<const 
+    joint_motor_state::msgs::JointMotorState> ConstJointMotorStatePtr;
 
 using namespace RoboCompMotors;
 
