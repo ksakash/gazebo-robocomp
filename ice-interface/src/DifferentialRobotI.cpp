@@ -12,7 +12,11 @@ typedef const boost::shared_ptr<const diffdrive_cmd::msgs::DiffDriveCmd> DiffDri
 typedef const boost::shared_ptr<const diffdrive_state::msgs::DiffDriveState> DiffDriveStatePtr;
 
 DifferentialRobotI::DifferentialRobotI(int argc, char **argv) {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::setupClient(argc, argv);
+#else
     gazebo::client::setup(argc, argv);
+#endif
     this->device_name_ = "gazebo_robocomp_diffdrive";
     this->sub_topic_name_ = "/diffdrive/data";
     this->pub_topic_name_ = "/my_robot";
@@ -23,7 +27,11 @@ DifferentialRobotI::DifferentialRobotI(int argc, char **argv) {
 } 
 
 DifferentialRobotI::~DifferentialRobotI() {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::shutdown();
+#else
     gazebo::client::shutdown();
+#endif
 }
 
 void DifferentialRobotI::getBaseState(RoboCompGenericBase::TBaseState& _base_state, const Ice::Current&) {

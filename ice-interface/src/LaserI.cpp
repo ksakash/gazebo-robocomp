@@ -12,7 +12,11 @@ using namespace gazebo;
 typedef const boost::shared_ptr<const laser_data::msgs::gazebo_robocomp_laser> ConstGazeboRoboCompLaserPtr;
 
 LaserI::LaserI(int argc, char **argv) {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::setupClient(argc, argv);
+#else
     gazebo::client::setup(argc, argv);
+#endif
     this->device_name_ = "gazebo_robocomp_laser";
     this->topic_name_ = "/gazebo_robocomp_laser/data";
     this->gazebo_node_ = gazebo::transport::NodePtr(new gazebo::transport::Node());
@@ -45,7 +49,11 @@ LaserI::LaserI(int argc, char **argv) {
 } 
 
 LaserI::~LaserI() {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::shutdown();
+#else
     gazebo::client::shutdown();
+#endif
 }
 
 TLaserData LaserI::getLaserData(const Ice::Current&) {

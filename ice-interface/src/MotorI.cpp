@@ -11,8 +11,11 @@ using namespace std;
 using namespace gazebo;
 
 MotorI::MotorI(int argc, char **argv) {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::setupClient(argc, argv);
+#else
     gazebo::client::setup(argc, argv);
-    
+#endif    
     this->sub_topic_name_ = "/gazebo/joint/vel";
     this->vel_topic_name_ = "/speed/cmd";
     this->pos_topic_name_ = "/position/cmd";
@@ -26,7 +29,11 @@ MotorI::MotorI(int argc, char **argv) {
 } 
 
 MotorI::~MotorI() {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::shutdown();
+#else
     gazebo::client::shutdown();
+#endif
 }
 
 void MotorI::setPosition(const MotorGoalPosition& goal, const Ice::Current&) {

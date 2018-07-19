@@ -7,7 +7,12 @@ using namespace std;
 using namespace gazebo; 
 
 CameraI::CameraI(int argc, char **argv) {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::setupClient(argc, argv);
+#else
     gazebo::client::setup(argc, argv);
+#endif
+
     this->device_name_ = "gazebo_robocomp_camera";
     this->sub_topic_name_ = "/gazebo/default/box/link/cam_sensor/image";
     this->pub_topic_name_ = "/my_robot";
@@ -19,7 +24,11 @@ CameraI::CameraI(int argc, char **argv) {
 } 
 
 CameraI::~CameraI() {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::shutdown();
+#else
     gazebo::client::shutdown();
+#endif
 }
 
 void CameraI::getYUVImage(int cam, imgType& roi, RoboCompCommonHead::THeadState& hState, RoboCompGenericBase::TBaseState& bState, const Ice::Current&) {

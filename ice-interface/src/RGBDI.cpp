@@ -7,7 +7,11 @@ using namespace std;
 using namespace gazebo; 
 
 RGBDI::RGBDI(int argc, char **argv) {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::setupClient(argc, argv);
+#else
     gazebo::client::setup(argc, argv);
+#endif
     this->device_name_ = "gazebo_robocomp_RGBD";
     this->sub_topic_name_ = "/gazebo_robocomp_RGBD/data";
     this->pub_topic_name_ = "/my_robot";
@@ -19,7 +23,11 @@ RGBDI::RGBDI(int argc, char **argv) {
 } 
 
 RGBDI::~RGBDI() {
+#if GAZEBO_MAJOR_VERSION < 6
+    gazebo::shutdown();
+#else
     gazebo::client::shutdown();
+#endif
 }
 
 TRGBDParams RGBDI::getRGBDParams(const Ice::Current&) {
