@@ -4,9 +4,6 @@
 
 #include <gazebo/physics/World.hh>
 #include <gazebo/physics/HingeJoint.hh>
-#include <sdf/sdf.hh>
-#include <sdf/Param.hh>
-#include <gazebo/common/Exception.hh>
 #include <gazebo/transport/transport.hh>
 
 #include "gazebo_robocomp_DiffDrive.hh"

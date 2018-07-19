@@ -2,11 +2,13 @@
 #define GAZEBO_ROBOCOMP_JOINT_HH
 
 #include <string>
+#include <algorithm>
+#include <assert.h>
+#include <iostream>
+#include <stdio.h>
 
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
-#include <iostream>
-#include <stdio.h>
 
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>

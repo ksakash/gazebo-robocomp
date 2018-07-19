@@ -2,19 +2,6 @@
 #include <string>
 
 #include "gazebo_robocomp_camera.hh"
-#include <gazebo/rendering/Camera.hh>
-
-#include <sdf/sdf.hh>
-#include <sdf/Param.hh>
-#include <gazebo/physics/World.hh>
-#include <gazebo/physics/HingeJoint.hh>
-#include <gazebo/common/Exception.hh>
-#include <gazebo/transport/transport.hh>
-
-// OpenCV
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
 
 using namespace cv;
 

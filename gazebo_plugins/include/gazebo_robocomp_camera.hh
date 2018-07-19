@@ -31,6 +31,7 @@
 #include <gazebo/sensors/sensors.hh>
 #include <gazebo/sensors/SensorTypes.hh>
 #include <gazebo/plugins/CameraPlugin.hh>
+#include <gazebo/rendering/Camera.hh>
 
 #include <gazebo/msgs/msgs.hh>
 #include <gazebo/transport/TransportTypes.hh>

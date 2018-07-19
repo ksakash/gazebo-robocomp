@@ -16,13 +16,21 @@
 #endif
 
 #include <gazebo/physics/physics.hh>
+#include <gazebo/physics/World.hh>
+
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/MessageTypes.hh>
+#include <gazebo/transport/transport.hh>
+
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
 #include <gazebo/common/Exception.hh>
+
 #include <gazebo/sensors/SensorTypes.hh>
+#include <gazebo/sensors/Sensor.hh>
+#include <gazebo/sensors/SensorTypes.hh>
+#include <gazebo/sensors/ImuSensor.hh>
 
 #include <ignition/math/Angle.hh>
 #include <ignition/math/Pose3.hh>
