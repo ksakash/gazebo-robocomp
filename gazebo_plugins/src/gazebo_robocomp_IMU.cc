@@ -1,7 +1,3 @@
-#include <algorithm>
-#include <string>
-#include <assert.h>
-
 #include "gazebo_robocomp_IMU.hh"
 
 namespace gazebo

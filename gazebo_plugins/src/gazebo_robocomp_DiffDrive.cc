@@ -1,19 +1,6 @@
-#include <algorithm>
-#include <string>
-#include <assert.h> 
-
-#include <gazebo/physics/World.hh>
-#include <gazebo/physics/HingeJoint.hh>
-#include <gazebo/transport/transport.hh>
-
 #include "gazebo_robocomp_DiffDrive.hh"
-#include "diffdrive_state.pb.h"
-#include "diffdrive.pb.h"
 
 using namespace std;
-
-using namespace diffdrive_cmd::msgs;
-using namespace diffdrive_state::msgs;
 
 typedef const boost::shared_ptr<const diffdrive_state::msgs::DiffDriveState> ConstDiffDriveStatePtr;
 typedef const boost::shared_ptr<const diffdrive_cmd::msgs::DiffDriveCmd> ConstDiffDriveCmdPtr;
@@ -155,7 +142,7 @@ void GazeboRoboCompDiffDrive::OnUpdate()
 
   diffdrive_state::msgs::DiffDriveState msg;
 
-  deque<gazebo::msgs::Vector3d*> states;
+  std::deque<gazebo::msgs::Vector3d*> states;
   gazebo::msgs::Pose* pose_;
 
   pose_ = msg.mutable_pose();

@@ -12,9 +12,8 @@
 #include <sdf/Param.hh>
 
 #include <gazebo/physics/physics.hh>
+#include <gazebo/plugins/RayPlugin.hh>
 
-#include <gazebo/transport/TransportTypes.hh>
-#include <gazebo/msgs/MessageTypes.hh>
 #include <gazebo/transport/transport.hh>
 
 #include <gazebo/common/Time.hh>
@@ -22,14 +21,8 @@
 #include <gazebo/common/Events.hh>
 #include <gazebo/common/Exception.hh>
 
-#include <gazebo/sensors/SensorTypes.hh>
 #include <gazebo/sensors/Sensor.hh>
 #include <gazebo/sensors/RaySensor.hh>
-#include <gazebo/sensors/SensorTypes.hh>
-
-#include <gazebo/plugins/RayPlugin.hh>
-#include <gazebo/physics/World.hh>
-#include <gazebo/physics/HingeJoint.hh>
 
 #include "raysensor.pb.h"
 #include "Laser_msgs.pb.h"

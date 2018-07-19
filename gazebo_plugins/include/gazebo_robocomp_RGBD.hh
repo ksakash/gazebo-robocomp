@@ -7,11 +7,6 @@
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 
-// OpenCV
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-
 // gazebo stuff
 #include <sdf/Param.hh>
 #include <gazebo/physics/physics.hh>
@@ -22,6 +17,7 @@
 #include <gazebo/plugins/DepthCameraPlugin.hh>
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
+
 namespace gazebo
 {
   class GazeboRoboCompRGBD : public DepthCameraPlugin

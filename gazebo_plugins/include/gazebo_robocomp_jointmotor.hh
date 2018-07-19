@@ -12,13 +12,14 @@
 
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
-#include <gazebo/common/Exception.hh>
+
 #include <gazebo/physics/physics.hh>
-#include <gazebo/transport/TransportTypes.hh>
-#include <gazebo/msgs/MessageTypes.hh>
+
+#include <gazebo/common/Exception.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
+
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
 

@@ -2,11 +2,11 @@
 #define GAZEBO_ROBOCOMP_JOINT_HH
 
 #include <string>
+#include <iostream>
+#include <stdio.h>
 
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
-#include <iostream>
-#include <stdio.h>
 
 #include <sdf/sdf.hh>
 #include <sdf/Param.hh>
@@ -20,8 +20,6 @@
 
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
-#include <gazebo/transport/TransportTypes.hh>
-#include <gazebo/msgs/MessageTypes.hh>
 
 #include <jointmotor_params.pb.h>
 #include <jointmotor_state.pb.h>

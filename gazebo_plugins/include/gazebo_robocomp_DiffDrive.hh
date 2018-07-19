@@ -2,6 +2,8 @@
 #define GAZEBO_ROBOCOMP_DIFFDRIVE_HH
  
 #include <string>
+#include <algorithm>
+#include <assert.h> 
 
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
@@ -16,13 +18,14 @@
 #endif
 
 #include <gazebo/physics/physics.hh>
-#include <gazebo/transport/TransportTypes.hh>
-#include <gazebo/msgs/MessageTypes.hh>
 
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
 #include <gazebo/common/Exception.hh>
+
+#include <gazebo/transport/transport.hh>
+#include <gazebo/msgs/msgs.hh>
 
 #include <gazebo/math/Angle.hh>
 
