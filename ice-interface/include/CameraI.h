@@ -7,12 +7,12 @@
 #include <gazebo/gazebo_client.hh>
 #endif
 
-#include <gazebo/transport/transport.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
-#include <gazebo/transport/TransportTypes.hh>
+
 #include <gazebo/msgs/msgs.hh>
+#include <gazebo/transport/transport.hh>
 
 // OpenCV
 #include <opencv2/core/core.hpp>

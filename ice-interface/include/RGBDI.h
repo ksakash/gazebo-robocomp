@@ -7,19 +7,18 @@
 #include <gazebo/gazebo_client.hh>
 #endif
 
-#include <gazebo/transport/transport.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
-#include <gazebo/transport/TransportTypes.hh>
+
 #include <gazebo/msgs/msgs.hh>
+#include <gazebo/transport/transport.hh>
 
 // OpenCV
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-using namespace std;
 using namespace RoboCompRGBD;
 
 class RGBDI : public RGBD 
@@ -50,7 +49,7 @@ private:
 
     private: std::string sub_topic_name_;
     private: std::string pub_topic_name_; 
-    private: string device_name_;
+    private: std::string device_name_;
     private: std::string new_image;
 
     private: imgType image_data_;

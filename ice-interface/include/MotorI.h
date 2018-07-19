@@ -7,12 +7,12 @@
 #include <gazebo/gazebo_client.hh>
 #endif
 
-#include <gazebo/transport/transport.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
-#include <gazebo/transport/TransportTypes.hh>
+
 #include <gazebo/msgs/msgs.hh>
+#include <gazebo/transport/transport.hh>
 
 #include <jointmotor_params.pb.h>
 #include <jointmotor_state.pb.h>
@@ -21,7 +21,6 @@
 
 typedef const boost::shared_ptr<const joint_motor_state::msgs::JointMotorState> ConstJointMotorStatePtr;
 
-using namespace std;
 using namespace RoboCompMotors;
 
 class MotorI : public Motors

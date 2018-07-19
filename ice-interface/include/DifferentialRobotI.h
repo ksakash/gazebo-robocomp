@@ -7,19 +7,17 @@
 #include <gazebo/gazebo_client.hh>
 #endif
 
-#include <gazebo/transport/transport.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
-#include <gazebo/transport/TransportTypes.hh>
+
 #include <gazebo/msgs/msgs.hh>
+#include <gazebo/transport/transport.hh>
+
 #include "diffdrive_state.pb.h" 
 #include "diffdrive_cmd.pb.h"
 
-using namespace std;
 using namespace RoboCompDifferentialRobot;
-using namespace diffdrive_cmd::msgs;
-using namespace diffdrive_state::msgs;
 
 typedef const boost::shared_ptr<const diffdrive_cmd::msgs::DiffDriveCmd> DiffDriveCmdPtr;
 typedef const boost::shared_ptr<const diffdrive_state::msgs::DiffDriveState> DiffDriveStatePtr;
@@ -44,7 +42,7 @@ private:
     private: gazebo::transport::PublisherPtr pub_;
     private: std::string sub_topic_name_;
     private: std::string pub_topic_name_; 
-    private: string device_name_;
+    private: std::string device_name_;
     private: TMechParams params_;
     private: RoboCompGenericBase::TBaseState state_;
 }; 

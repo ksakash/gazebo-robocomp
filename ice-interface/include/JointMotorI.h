@@ -7,12 +7,12 @@
 #include <gazebo/gazebo_client.hh>
 #endif
 
-#include <gazebo/transport/transport.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
-#include <gazebo/transport/TransportTypes.hh>
+
 #include <gazebo/msgs/msgs.hh>
+#include <gazebo/transport/transport.hh>
 
 #include <jointmotor_params.pb.h>
 #include <jointmotor_state.pb.h>
@@ -27,7 +27,6 @@
 typedef const boost::shared_ptr<const motor_state_list::msgs::MotorStateMap> ConstMotorStateMapPtr;
 typedef const boost::shared_ptr<const motor_params_list::msgs::MotorParamsList> ConstMotorParamsListPtr;
 
-using namespace std;
 using namespace RoboCompJointMotor;
 
 class JointMotorI : public JointMotor
@@ -37,12 +36,12 @@ public:
     ~JointMotorI();
 	virtual void  setPosition(const MotorGoalPosition& goal, const Ice::Current&) override;
     virtual void  setVelocity(const MotorGoalVelocity& goal, const Ice::Current&) override;
-    virtual void  setZeroPos(const string& name, const Ice::Current&) override;
+    virtual void  setZeroPos(const std::string& name, const Ice::Current&) override;
     virtual void  setSyncPosition(const MotorGoalPositionList& listGoals, const Ice::Current&) override;
     virtual void  setSyncVelocity(const MotorGoalVelocityList& listGoals, const Ice::Current&) override;
     virtual void  setSyncZeroPos(const Ice::Current&) override;
-    virtual MotorParams getMotorParams(const string& motor, const Ice::Current&) override;
-    virtual MotorState getMotorState(const string& motor, const Ice::Current&) override;
+    virtual MotorParams getMotorParams(const std::string& motor, const Ice::Current&) override;
+    virtual MotorState getMotorState(const std::string& motor, const Ice::Current&) override;
     virtual MotorStateMap getMotorStateMap(const MotorList& mList, const Ice::Current&) override;
     virtual MotorParamsList getAllMotorParams(const Ice::Current&) override;
     virtual BusParams getBusParams(const Ice::Current&) override;
