@@ -79,8 +79,31 @@ add_executable(My_Robot_Vel src/diff_drive_cmd.cc)
 target_link_libraries(My_Robot_Vel diffdrive_cmd ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${SDF_LIBRARIES})
 add_dependencies(My_Robot_Vel diffdrive_cmd)
 
-add_executable(server src/server.cpp)
-target_link_libraries(server Laser LaserI Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+add_executable(gazeboserver src/server.cpp)
+target_link_libraries(gazeboserver 
+    Laser 
+    LaserI 
+    Ice 
+    IceUtil
+    JointMotorI
+    MotorI
+    RGBDI
+    IMUI
+    DifferentialRobotI
+    CameraI
+    bumperI
+    Motors
+    JointMotor
+    DifferentialRobot
+    bumper
+    Camera
+    IMU
+    RGBD 
+    ${ZeroCIce_LIBRARIES} 
+    ${easyiceconfig_LIBRARIES} 
+    ${GAZEBO_LIBRARIES} 
+    ${Boost_LIBRARIES}
+)
 
 add_executable(client src/client.cpp)
 target_link_libraries(client ${GAZEBO_LIBRARIES} Laser ${Boost_LIBRARIES} Ice IceUtil ${ZeroCIce_LIBRARIES} ${easyiceconfig_LIBRARIES})

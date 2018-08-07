@@ -13,7 +13,7 @@ add_library(gazebo_robocomp_joint SHARED src/gazebo_robocomp_joint.cc include/ga
 target_link_libraries(gazebo_robocomp_joint 
     ${GAZEBO_LIBRARIES} 
     ${Boost_LIBRARIS} 
-    ${SDF_LIBRARIES} 
+    ${SDF_LIBRARIES}
     motor_goal_velocity 
     motor_goal_position 
     jointmotor_state 
